@@ -87,7 +87,7 @@ CREATE TABLE payment (
     date DATE,
     amount DOUBLE
 );*/
-        getConnection("CREATE TABLE employee( " +
+        getConnection("CREATE TABLE administrative( " +
                 "name VARCHAR(255) PRIMARY KEY, " +
                 "married BIT, " +
                 "num_children INTEGER, " +
@@ -98,7 +98,19 @@ CREATE TABLE payment (
                 "telephone VARCHAR(255), " +
                 "bank_name VARCHAR(255), " +
                 "iban VARCHAR(255), " +
-                "category_type BIT, " +
+                "salary_id VARCHAR(255) " +
+                ")");
+        getConnection("CREATE TABLE educational( " +
+                "name VARCHAR(255) PRIMARY KEY, " +
+                "married BIT, " +
+                "num_children INTEGER, " +
+                "children_age JSON, " +
+                "start_date DATE, " +
+                "department VARCHAR(255), " +
+                "address VARCHAR(255), " +
+                "telephone VARCHAR(255), " +
+                "bank_name VARCHAR(255), " +
+                "iban VARCHAR(255), " +
                 "salary_id VARCHAR(255) " +
                 ")");
         getConnection("CREATE TABLE salary ( " +
