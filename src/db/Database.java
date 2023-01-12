@@ -1,0 +1,101 @@
+package db;
+
+import java.sql.*;
+
+public class Database {
+    final static String driver="com.mysql.cj.jdbc.Driver";
+    final static String url="jdbc:mysql://localhost:3306/";
+    final static String username="root";
+    final static String password="";
+    public static void createDB(){
+        try{
+
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url,username,password);
+            Statement stmt=conn.createStatement();
+            stmt.executeUpdate("DROP DATABASE IF EXISTS salary_db");
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS salary_db;");
+            System.out.println("DB Created");
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static Connection updateDB(String query){
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url+"salary_db",username,password);
+            Statement stmt=conn.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("DB Updated");
+            return conn;
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static ResultSet getFromDB(String query){
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url+"salary_db",username,password);
+            Statement stmt=conn.createStatement();
+            ResultSet res= stmt.executeQuery(query);
+            System.out.println("DB Get");
+            return res;
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void initDB(){
+        updateDB("CREATE TABLE permanent( " +
+                "name VARCHAR(255) PRIMARY KEY, " +
+                "address VARCHAR(255), " +
+                "phone_number VARCHAR(255), " +
+                "iban VARCHAR(255), " +
+                "bank_name VARCHAR(255), " +
+                "start_date DATE, " +
+                "salary_id INTEGER, " +
+                "department VARCHAR(255), " +
+                "children INTEGER, " +
+                "married BIT, " +
+                "category BIT, " +
+                "years INTEGER" +
+                ")");
+        updateDB("CREATE TABLE contracted( " +
+                "name VARCHAR(255) PRIMARY KEY, " +
+                "address VARCHAR(255), " +
+                "phone_number VARCHAR(255), " +
+                "iban VARCHAR(255), " +
+                "bank_name VARCHAR(255), " +
+                "start_date DATE, " +
+                "salary_id INTEGER, " +
+                "department VARCHAR(255), " +
+                "children INTEGER, " +
+                "married BIT, " +
+                "category BIT, " +
+                "end_date DATE" +
+                ")");
+        updateDB("CREATE TABLE ages( " +
+                "name VARCHAR(255), " +
+                "age INTEGER " +
+                ")");
+
+        updateDB("CREATE TABLE salary( " +
+                "    name VARCHAR(255), " +
+                "    main_salary DOUBLE, " +
+                "    bonus DOUBLE," +
+                " FOREIGN KEY (name) REFERENCES permanent(name) "+
+                //" FOREIGN KEY (sname) REFERENCES contracted(name)"+
+                ");");
+        updateDB("CREATE TABLE payment ( " +
+
+                "    name VARCHAR(255), " +
+                "    date DATE, " +
+                "    amount DOUBLE, " +
+                " FOREIGN KEY (name) REFERENCES permanent(name), "+
+                " FOREIGN KEY (name) REFERENCES contracted(name)"+
+                ");");
+    }
+
+    public static void deleteDB(){
+        updateDB("DROP DATABASE IF EXISTS salary_db");
+    }
+}

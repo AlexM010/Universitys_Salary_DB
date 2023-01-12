@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -23,6 +23,8 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="a4cf397c-2e77-4d5b-8fe3-258aede850e4" dataset="salary_db.contracted" active-filter-id="" />
+    <filter-actions connection-id="a4cf397c-2e77-4d5b-8fe3-258aede850e4" dataset="salary_db.payment" active-filter-id="" />
     <filter-actions connection-id="a4cf397c-2e77-4d5b-8fe3-258aede850e4" dataset="salary_db.employee" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
