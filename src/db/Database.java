@@ -15,6 +15,7 @@ public class Database {
             Statement stmt=conn.createStatement();
             stmt.executeUpdate("DROP DATABASE IF EXISTS salary_db");
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS salary_db;");
+            updateDB("SET GLOBAL FOREIGN_KEY_CHECKS=0;");
             System.out.println("DB Created");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -75,26 +76,28 @@ public class Database {
                 ")");
         updateDB("CREATE TABLE ages( " +
                 "name VARCHAR(255), " +
-                "age INTEGER " +
+                "age INTEGER," +
+                "CONSTRAINT FK_1 FOREIGN KEY (name) REFERENCES permanent(name),"+
+                "CONSTRAINT FK_2 FOREIGN KEY (name) REFERENCES contracted(name)"+
                 ")");
+
 
         updateDB("CREATE TABLE salary( " +
                 "    name VARCHAR(255), " +
                 "    main_salary DOUBLE, " +
                 "    bonus DOUBLE," +
-                " FOREIGN KEY (name) REFERENCES permanent(name) "+
-                //" FOREIGN KEY (sname) REFERENCES contracted(name)"+
+                " CONSTRAINT FK_3 FOREIGN KEY (name) REFERENCES permanent(name),"+
+                "CONSTRAINT FK_4 FOREIGN KEY (name) REFERENCES contracted(name)"+
                 ");");
         updateDB("CREATE TABLE payment ( " +
 
                 "    name VARCHAR(255), " +
                 "    date DATE, " +
                 "    amount DOUBLE, " +
-                " FOREIGN KEY (name) REFERENCES permanent(name), "+
-                " FOREIGN KEY (name) REFERENCES contracted(name)"+
+                " CONSTRAINT FK_5 FOREIGN KEY (name) REFERENCES permanent(name),"+
+                "CONSTRAINT FK_6 FOREIGN KEY (name) REFERENCES contracted(name)"+
                 ");");
     }
-
     public static void deleteDB(){
         updateDB("DROP DATABASE IF EXISTS salary_db");
     }

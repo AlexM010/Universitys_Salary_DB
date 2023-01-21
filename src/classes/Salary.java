@@ -1,5 +1,7 @@
 package classes;
 
+
+
 import java.sql.*;
 import static db.Database.getFromDB;
 import static db.Database.updateDB;
@@ -13,11 +15,12 @@ public class Salary {
     private double familyBonus;
     private double searchBonus;
     private double libraryBonus;
-    public static Salary addSalary(String name,double salary){
+    public static  Salary addSalary(String name, double salary){
         Salary s= new Salary();
         s.setMainSalary(salary);
         s.setName(name);
         System.out.println("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+0+");");
+
         updateDB("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+0+");");
 
         return s;
@@ -35,6 +38,7 @@ public class Salary {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+
         totalSalary=currentSalary + totalBonus;
         return totalSalary;
     }
