@@ -5,8 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.IOException;
 import java.sql.ResultSet;
-
+import java.io.BufferedReader;
 import static db.Database.getFromDB;
 import static db.Database.updateDB;
 
@@ -134,7 +135,7 @@ public class Employee {
 
         updateDB("INSERT INTO contracted(name, address, phone_number, iban, bank_name, start_date, salary_id, department, children, married, category, end_date)" + "VALUES"+
                 "('"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"',"+ e.getSalaryId() +",'"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"');");
-        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+//        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
         return e;
     }
     public static Employee editEmployee(String Json)  {
@@ -423,4 +424,18 @@ public class Employee {
             return elem.getAsJsonObject();
         }
     }
+    public static String ReaderToJson(BufferedReader bufferReader){
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while (true) {
+            try {
+                if (!((line = bufferReader.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            sb.append(line);
+        }
+        return sb.toString();
+    }
 }
+
