@@ -1,5 +1,7 @@
 package db;
 
+import com.google.gson.JsonObject;
+
 import java.sql.*;
 
 public class Database {
@@ -53,7 +55,6 @@ public class Database {
                 "iban VARCHAR(255), " +
                 "bank_name VARCHAR(255), " +
                 "start_date DATE, " +
-                "salary_id INTEGER, " +
                 "department VARCHAR(255), " +
                 "children INTEGER, " +
                 "married BIT, " +
@@ -67,7 +68,6 @@ public class Database {
                 "iban VARCHAR(255), " +
                 "bank_name VARCHAR(255), " +
                 "start_date DATE, " +
-                "salary_id INTEGER, " +
                 "department VARCHAR(255), " +
                 "children INTEGER, " +
                 "married BIT, " +
@@ -101,4 +101,20 @@ public class Database {
     public static void deleteDB(){
         updateDB("DROP DATABASE IF EXISTS salary_db");
     }
+
+    public static String getResultsToJSON(ResultSet rs) throws SQLException {
+        ResultSetMetaData metadata = rs.getMetaData();
+        int columnCount = metadata.getColumnCount();
+        JsonObject object = new JsonObject();
+
+
+        String row = "";
+        for (int i = 1; i <= columnCount; i++) {
+            String name = metadata.getColumnName(i);
+            String value = rs.getString(i);
+            object.addProperty(name,value);
+        }
+        return object.toString();
+    }
 }
+
