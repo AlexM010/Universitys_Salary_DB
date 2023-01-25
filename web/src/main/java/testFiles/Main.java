@@ -24,7 +24,7 @@ public class Main {
                 " \"numOfChildren\": 4,\n" +
                 " \"ages\": [23,18,16,12],\n" +
                 " \"married\": true,\n" +
-                " \"category\": false,\n" +
+                " \"category\": true,\n" +
                 " \"years\": 12,\n" +
                 " \"bonus\": 0,\n" +
                 " \"main_salary\": 100.00\n" +
@@ -39,14 +39,14 @@ public class Main {
                 "   \"startDate\": \"2022-01-01\",\n" +
                 "   \"department\": \"Marketing\",\n" +
                 "   \"numOfChildren\": 0,\n" +
-                "   \"married\": false,\n" +
-                "   \"category\": true,\n" +
+                "   \"married\": true,\n" +
+                "   \"category\": false,\n" +
                 "   \"endDate\": \"2023-01-01\",\n" +
                 "   \"bonus\": 1000.00,\n" +
                 " \"main_salary\": 30000.00\n" +
                 "}");
         System.in.read();
-        e3=Employee.editEmployee("{\n" +
+       /* e3=Employee.editEmployee("{\n" +
                 " \"pname\": \"Alexandros Markodimitrakis\",\n" +
                 " \"contract\": false,\n" +
                 " \"name\": \"Alex Markodimitrakis\",\n" +
@@ -63,10 +63,11 @@ public class Main {
                 " \"main_salary\": 100.00,\n" +
                 "\"bonus\": 50.00,\n" +
                 " \"years\": 7\n" +
-                "}");
+                "}");*/
                 Employee.changeContractedSalary("Emily Johnson", 100);
                 Employee.changeBonuses(100,50,100,50);
-                Payment.addPayment("Alex Markodimitrakis","2022-05-20",100);
+                System.out.println(Employee.doPayments("2022-01-05",100,50,100,50));
+
    //     Employee.changePermanentEducationalSalaries(15000);
       /*  Employee e4=Employee.addEmployee("{\n" +
                 "   \"contract\": true,\n" +
