@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/ajax.js"></script>
+    <!-- Bootstrap -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body class="container">
+<div class="mb-3"></div>
+<button class="btn btn-primary mb-3" onclick="add_permanent()">add permanent</button>
+<button class="btn btn-primary mb-3" onclick="add_contracted()">add contract</button>
+<button class="btn btn-primary mb-3" onclick="edit()">edit user</button>
+<div id="newAdd" style="display: none">
+    <h2 id="description">New Permanent</h2>
+    <form id="employeeForm" onsubmit="new_permanent(); return false">
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="name" class="form-label">*Name</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        minlength="8"
+                        required
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="address" class="form-label">*Address</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        required
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="phone_number" class="form-label">*Phone Number</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="phone_number"
+                        name="telephone_num"
+                        required
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="iban" class="form-label">*iban</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="iban"
+                        name="IBAN"
+                        required
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="bank_name" class="form-label">*Bank Name</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="bank_name"
+                        name="bank_name"
+                        required
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="startDate" class="form-label">*Start date</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="startDate"
+                        name="startDate"
+                        required
+                />
+            </div>
+        </div>
+        <div id="end" class="mb-3">
+            <div class="col-sm-3">
+                <label for="end_date" class="form-label">*End_date</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="end_date"
+                        name="endDate"
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="department" class="form-label">*Department</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="department"
+                        name="department"
+
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="numOfChildren" class="form-label">*Children</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="numOfChildren"
+                        name="numOfChildren"
+
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="numOfChildren" class="form-label">*Children Ages</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="ages"
+                        name="ages"
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label for="married" class="form-label">*Married</label>
+            </div>
+            <div class="col-sm-4">
+                <label for="married"> Yes</label>
+                <input
+                        type="radio"
+                        class="form-check-input"
+                        id="married"
+                        name="married"
+                        value = true
+
+                /><br>
+                <label for="notmarried">No</label>
+                <input
+                        type="radio"
+                        class="form-check-input"
+                        id="notmarried"
+                        name="married"
+                        value = false
+
+                />
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col-sm-3">
+                <label  class="form-label">*Category</label>
+            </div>
+            <div class="col-sm-4">
+                <label for="administrative"> Administrative</label>
+                <input
+                        type="radio"
+                        class="form-check-input"
+                        id="administrative"
+                        name="category"
+                        value = false
+
+                /><br>
+                <label for="Educational">Educational</label>
+                <input
+                        type="radio"
+                        class="form-check-input"
+                        id="Educational"
+                        name="category"
+                        value = true
+                />
+            </div>
+        </div>
+        <div  class="mb-3">
+            <div class="col-sm-3">
+                <label for="years" class="form-label">*Years</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="number"
+                        class="form-control"
+                        id="years"
+                        name="years"
+                />
+            </div>
+        </div>
+        <div  id="salary" class="mb-3">
+            <div class="col-sm-3">
+                <label for="main_salary" class="form-label">*Main salary</label>
+            </div>
+            <div class="col-sm-4">
+                <input
+                        type="text"
+                        class="form-control"
+                        id="main_salary"
+                        name="main_salary"
+                />
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+
+        </div>
+        <button
+                id="btn-add"
+                type="submit"
+                class="btn btn-primary"
+        >
+            Add
+        </button>
+    </form>
+</div>
+<div id="search" class="col-sm-3" style="display: none">
+    <input id="searchField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="getUser()">
+    <div id="searchResult"></div>
+</div>
+</body>
+</html>
