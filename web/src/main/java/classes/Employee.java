@@ -381,6 +381,8 @@ public class Employee {
                 int children=0;
                 if(married==1){
                     children+=1;
+                }else{
+                    children=0;
                 }
                 while(resA.next()){
                     int age = resA.getInt("age");
