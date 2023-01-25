@@ -27,15 +27,12 @@ public class Employee {
     private String IBAN;
     private String bank_name;
     private String startDate;
-    private int salaryId;
     private String department;
 
     /* Family Status*/
     private boolean married;
     private int numOfChildren;
     private int[] children;
-
-
     /* Staff type */
 
     Contract contract;
@@ -54,7 +51,6 @@ public class Employee {
         e.setIBAN(json.get("IBAN").getAsString());
         e.setBank_name(json.get("bank_name").getAsString());
         e.setStartDate(json.get("startDate").getAsString());
-        e.setSalaryId(json.get("salaryId").getAsInt());
         e.setDepartment(json.get("department").getAsString());
         e.setNumOfChildren(json.get("numOfChildren").getAsInt());
         e.setMarried(json.get("married").getAsBoolean());
@@ -76,8 +72,8 @@ public class Employee {
             numbers[i] = arr.get(i).getAsInt();
         }
         e.setChildren(numbers);
-        updateDB("INSERT INTO permanent(name, address, phone_number, iban, bank_name, start_date, salary_id, department, children, married, category, years)" + "VALUES"+
-                "('"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"',"+ e.getSalaryId() +",'"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +","+ e.getYears() +");");
+        updateDB("INSERT INTO permanent(name, address, phone_number, iban, bank_name, start_date, department, children, married, category, years)" + "SELECT"+
+                " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +","+ e.getYears() +" WHERE NOT EXISTS (SELECT 1 FROM contracted WHERE name = '"+e.getName()+"');");
         numbers=e.getChildren();
         for(int i=0;i<numbers.length;i++) {
             updateDB("INSERT INTO ages(name, age)VALUES('" + e.getName() + "'," +numbers[i]+");");
@@ -103,7 +99,6 @@ public class Employee {
         e.setIBAN(json.get("IBAN").getAsString());
         e.setBank_name(json.get("bank_name").getAsString());
         e.setStartDate(json.get("startDate").getAsString());
-        e.setSalaryId(json.get("salaryId").getAsInt());
         e.setDepartment(json.get("department").getAsString());
         e.setNumOfChildren(json.get("numOfChildren").getAsInt());
         e.setMarried(json.get("married").getAsBoolean());
@@ -133,9 +128,9 @@ public class Employee {
         }else
             e.setChildren(null);
 
-        updateDB("INSERT INTO contracted(name, address, phone_number, iban, bank_name, start_date, salary_id, department, children, married, category, end_date)" + "VALUES"+
-                "('"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"',"+ e.getSalaryId() +",'"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"');");
-//        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+        updateDB("INSERT INTO contracted(name, address, phone_number, iban, bank_name, start_date,department, children, married, category, end_date)" + "SELECT"+
+                " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"' WHERE NOT EXISTS (SELECT 1 FROM permanent WHERE name = '"+e.getName()+"');");
+        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
         return e;
     }
     public static Employee editEmployee(String Json)  {
@@ -144,6 +139,7 @@ public class Employee {
         updateDB("DELETE FROM ages WHERE name =  '"+json.get("pname").getAsString()+"';");
         ResultSet res1=getFromDB("SELECT * FROM permanent WHERE name = '"+json.get("pname").getAsString()+"';");
         ResultSet res2=getFromDB("SELECT * FROM contracted WHERE name = '"+json.get("pname").getAsString()+"';");
+        updateDB("SET GLOBAL FOREIGN_KEY_CHECKS=0;");
         boolean res;
         try {
             res = res1.next();
@@ -158,12 +154,10 @@ public class Employee {
             }
         }else{
             if(em.getContract()==Contract.PERMANENT) {
-
                 updateDB("DELETE FROM permanent WHERE name ='"+json.get("pname").getAsString()+"';");
                 return addContractedEmployee(Json);
             }
         }
-
 
         String query;
         try{
@@ -175,7 +169,7 @@ public class Employee {
                 em.setIBAN(res1.getString("iban"));
                 em.setBank_name(res1.getString("bank_name"));
                 em.setStartDate(res1.getString("start_date"));
-                em.setSalaryId(res1.getInt("salary_id"));
+
                 em.setDepartment(res1.getString("department"));
                 em.setNumOfChildren(res1.getInt("children"));
                 em.setMarried(res1.getBoolean("married"));
@@ -200,9 +194,7 @@ public class Employee {
                 if (json.has("startDate")) {
                     em.setStartDate(json.get("startDate").getAsString());
                 }
-                if (json.has("salaryId")) {
-                    em.setSalaryId(json.get("salaryId").getAsInt());
-                }
+
                 if (json.has("department")) {
                     em.setDepartment(json.get("department").getAsString());
                 }
@@ -219,7 +211,7 @@ public class Employee {
                     em.setYears(json.get("years").getAsInt());
                 }
 
-                query="UPDATE permanent SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() + "', salary_id = '" + em.getSalaryId() + "', department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) + ", years = " + em.getYears() + " WHERE name = '" + json.get("pname").getAsString() + "';";
+                query="UPDATE permanent SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() + "', department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) + ", years = " + em.getYears() + " WHERE name = '" + json.get("pname").getAsString() + "';";
             }else{
                 res2.next();
                 System.out.println(Json);
@@ -229,7 +221,6 @@ public class Employee {
                 em.setIBAN(res2.getString("iban"));
                 em.setBank_name(res2.getString("bank_name"));
                 em.setStartDate(res2.getString("start_date"));
-                em.setSalaryId(res2.getInt("salary_id"));
                 em.setDepartment(res2.getString("department"));
                 em.setNumOfChildren(res2.getInt("children"));
                 em.setMarried(res2.getBoolean("married"));
@@ -255,9 +246,6 @@ public class Employee {
                 if (json.has("startDate")) {
                     em.setStartDate(json.get("startDate").getAsString());
                 }
-                if (json.has("salaryId")) {
-                    em.setSalaryId(json.get("salaryId").getAsInt());
-                }
                 if (json.has("department")) {
                     em.setDepartment(json.get("department").getAsString());
                 }
@@ -274,7 +262,7 @@ public class Employee {
                     em.setEndDate(json.get("endDate").getAsString());
                 }
 
-                query="UPDATE contracted SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() + "', salary_id = " + em.getSalaryId() + ", department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) +", end_date = '" + em.getEndDate() + "' WHERE name = '" + json.get("pname").getAsString() + "';";
+                query="UPDATE contracted SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() +  "', department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) +", end_date = '" + em.getEndDate() + "' WHERE name = '" + json.get("pname").getAsString() + "';";
             }
             System.out.println(query);
             updateDB(query);
@@ -344,14 +332,6 @@ public class Employee {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
-    }
-
-    public int getSalaryId() {
-        return salaryId;
-    }
-
-    public void setSalaryId(int salaryId) {
-        this.salaryId = salaryId;
     }
 
     public String getDepartment() {
