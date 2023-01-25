@@ -33,8 +33,6 @@ public class Employee {
     private boolean married;
     private int numOfChildren;
     private int[] children;
-
-
     /* Staff type */
 
     Contract contract;
@@ -80,7 +78,7 @@ public class Employee {
         for(int i=0;i<numbers.length;i++) {
             updateDB("INSERT INTO ages(name, age)VALUES('" + e.getName() + "'," +numbers[i]+");");
         }
-//        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
         return e;
     }
     public static Employee addEmployee(String Json){
@@ -132,7 +130,7 @@ public class Employee {
 
         updateDB("INSERT INTO contracted(name, address, phone_number, iban, bank_name, start_date,department, children, married, category, end_date)" + "SELECT"+
                 " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"' WHERE NOT EXISTS (SELECT 1 FROM permanent WHERE name = '"+e.getName()+"');");
-//        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
         return e;
     }
     public static Employee editEmployee(String Json)  {
@@ -141,6 +139,7 @@ public class Employee {
         updateDB("DELETE FROM ages WHERE name =  '"+json.get("pname").getAsString()+"';");
         ResultSet res1=getFromDB("SELECT * FROM permanent WHERE name = '"+json.get("pname").getAsString()+"';");
         ResultSet res2=getFromDB("SELECT * FROM contracted WHERE name = '"+json.get("pname").getAsString()+"';");
+        updateDB("SET GLOBAL FOREIGN_KEY_CHECKS=0;");
         boolean res;
         try {
             res = res1.next();

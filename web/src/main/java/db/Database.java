@@ -68,11 +68,12 @@ public class Database {
                 "iban VARCHAR(255), " +
                 "bank_name VARCHAR(255), " +
                 "start_date DATE, " +
+                "end_date DATE," +
                 "department VARCHAR(255), " +
                 "children INTEGER, " +
                 "married BIT, " +
-                "category BIT, " +
-                "end_date DATE" +
+                "category BIT " +
+
                 ")");
         updateDB("CREATE TABLE ages( " +
                 "name VARCHAR(255), " +

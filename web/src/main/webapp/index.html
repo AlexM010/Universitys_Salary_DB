@@ -16,12 +16,13 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body class="container">
 <div class="mb-3"></div>
 <button class="btn btn-primary mb-3" onclick="add_permanent()">add permanent</button>
 <button class="btn btn-primary mb-3" onclick="add_contracted()">add contract</button>
-
+<button class="btn btn-primary mb-3" onclick="edit()">edit user</button>
 <div id="newAdd" style="display: none">
     <h2 id="description">New Permanent</h2>
     <form id="employeeForm" onsubmit="new_permanent(); return false">
@@ -251,6 +252,9 @@
         </button>
     </form>
 </div>
-
+<div id="search" class="col-sm-3" style="display: none">
+    <input id="searchField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="getUser()">
+    <div id="searchResult"></div>
+</div>
 </body>
 </html>

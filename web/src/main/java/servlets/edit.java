@@ -1,5 +1,8 @@
 package servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -10,32 +13,39 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static db.Database.getFromDB;
+import static db.Database.getResultsToJSON;
 
 @WebServlet(name = "edit", value = "/edit")
 public class edit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String username=request.getParameter("user");
         try (PrintWriter out = response.getWriter()){
-            int count = 0;
-            int count2 = 0;
-            String username=request.getParameter("name");
+
             ResultSet rp = getFromDB("SELECT * FROM permanent WHERE name = '" + username + "'");
             ResultSet rc = getFromDB("SELECT * FROM contracted WHERE name = '" + username + "'");
-            while(rp.next()){
-                count++;
-            }
-            while (rc.next()){
-                count2++;
-            }
-            if(count>0 || count2>0){
-//            out.println("Already exists");
-                System.out.println("Status code 403 - username is used");
-                response.setStatus(403);
-            }
-            else{
-//            out.println();
+            if(rp.next()){
+                String json = "{\"contract\":false}";
+                JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+                JsonObject newJsonObject = new JsonParser().parse(getResultsToJSON(rp)).getAsJsonObject();
+                jsonObject.add("newData",newJsonObject);
+                json = jsonObject.toString();
+
+                out.println(json);
                 response.setStatus(200);
+            }
+            else if(rc.next()){
+                String json = "{\"contract\":true}";
+                JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+                JsonObject newJsonObject = new JsonParser().parse(getResultsToJSON(rc)).getAsJsonObject();
+                jsonObject.add("newData",newJsonObject);
+                json = jsonObject.toString();
+                System.out.println(json);
+                out.println(json);
+                response.setStatus(200);
+            }else {
+                System.out.println("Not found");
+                response.setStatus(403);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
