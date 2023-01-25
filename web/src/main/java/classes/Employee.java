@@ -283,7 +283,27 @@ public class Employee {
         return em;
     }
 
+    public static void changePermanentSalaries( int salary){
+        try{
+            String query="SELECT name,years FROM permanent;";
+            ResultSet res = getFromDB(query);
+            while(res.next()){
+                String name = res.getString("name");
+                int years = res.getInt("years");
 
+                updateDB("UPDATE salary SET main_salary =" + (salary+0.15*years*salary) + " WHERE name = '" + name + "';");
+            }
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static void changeContractedSalary(String name,int salary){
+        try{
+            updateDB("UPDATE salary SET main_salary =" + salary+ " WHERE name = '" + name + "';");
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public String getName() {
