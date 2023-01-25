@@ -86,6 +86,8 @@ public class Employee {
         double bonus=json.get("bonus").getAsDouble();
         if(e.isMarried()){
             children+=1;
+        }else{
+            children=0;
         }
 
         Salary s=Salary.addSalary(e.getName(),(salary+0.15*json.get("years").getAsInt()*salary),bonus+0.05*children*salary);
@@ -143,9 +145,6 @@ public class Employee {
                 " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"' WHERE NOT EXISTS (SELECT 1 FROM permanent WHERE name = '"+e.getName()+"');");
 
         int children=0;
-        if(e.isMarried()){
-            children+=1;
-        }
         ResultSet res=getFromDB("SELECT * FROM ages WHERE name = '"+e.getName()+"';");
         try{
             while(res.next()){
@@ -155,6 +154,11 @@ public class Employee {
 
         }catch (Exception ex){
             System.out.println(ex.getMessage());
+        }
+        if(e.isMarried()){
+            children+=1;
+        }else {
+            children=0;
         }
         double bonus=json.get("bonus").getAsDouble();
         Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble(),bonus+0.05*children*json.get("main_salary").getAsDouble());
@@ -301,10 +305,8 @@ public class Employee {
             JsonArray arr= json.get("ages").getAsJsonArray();
             int[] numbers = new int[em.getNumOfChildren()];
 
+
             int children=0;
-            if(em.isMarried()){
-                children+=1;
-            }
             // Extract numbers from JSON array.
             for (int i = 0; i < em.getNumOfChildren(); ++i) {
 
@@ -319,7 +321,10 @@ public class Employee {
 
             if(em.isMarried()){
                 children+=1;
+            }else{
+                children=0;
             }
+
             updateDB("UPDATE salary SET bonus = " +(json.get("bonus").getAsDouble()+0.05*children*json.get("main_salary").getAsDouble()) + " WHERE name = '" + em.getName() + "';");
 
         }catch(Exception e){
@@ -399,14 +404,16 @@ public class Employee {
                 String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
                 ResultSet resA = getFromDB(queryA);
                 int children=0;
-                if(married==1){
-                    children+=1;
-                }
                 while(resA.next()){
                     int age = resA.getInt("age");
                     if(age<18){
                         children+=1;
                     }
+                }
+                if(married==1){
+                    children+=1;
+                }else{
+                    children=0;
                 }
                 String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
                 ResultSet resS = getFromDB(queryS);
