@@ -67,9 +67,13 @@ public class Employee {
         JsonArray arr= json.get("ages").getAsJsonArray();
         int[] numbers = new int[e.getNumOfChildren()];
 
+        int children=0;
         // Extract numbers from JSON array.
         for (int i = 0; i < e.getNumOfChildren(); ++i) {
             numbers[i] = arr.get(i).getAsInt();
+            if(numbers[i]<18){
+                children++;
+            }
         }
         e.setChildren(numbers);
         updateDB("INSERT INTO permanent(name, address, phone_number, iban, bank_name, start_date, department, children, married, category, years)" + "SELECT"+
@@ -78,7 +82,14 @@ public class Employee {
         for(int i=0;i<numbers.length;i++) {
             updateDB("INSERT INTO ages(name, age)VALUES('" + e.getName() + "'," +numbers[i]+");");
         }
-        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+        double salary=json.get("main_salary").getAsDouble();
+        double bonus=json.get("bonus").getAsDouble();
+        if(e.isMarried()){
+            children+=1;
+        }
+
+        Salary s=Salary.addSalary(e.getName(),(salary+0.15*json.get("years").getAsInt()*salary),bonus+0.05*children*salary);
+
         return e;
     }
     public static Employee addEmployee(String Json){
@@ -130,7 +141,23 @@ public class Employee {
 
         updateDB("INSERT INTO contracted(name, address, phone_number, iban, bank_name, start_date,department, children, married, category, end_date)" + "SELECT"+
                 " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +",'"+ e.getEndDate() +"' WHERE NOT EXISTS (SELECT 1 FROM permanent WHERE name = '"+e.getName()+"');");
-        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble());
+
+        int children=0;
+        if(e.isMarried()){
+            children+=1;
+        }
+        ResultSet res=getFromDB("SELECT * FROM ages WHERE name = '"+e.getName()+"';");
+        try{
+            while(res.next()){
+                if(res.getInt("age")<18)
+                    children+=1;
+            }
+
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        double bonus=json.get("bonus").getAsDouble();
+        Salary s=Salary.addSalary(e.getName(),json.get("main_salary").getAsDouble(),bonus+0.05*children*json.get("main_salary").getAsDouble());
         return e;
     }
     public static Employee editEmployee(String Json)  {
@@ -158,6 +185,7 @@ public class Employee {
                 return addContractedEmployee(Json);
             }
         }
+        updateDB("UPDATE salary SET name= '"+json.get("name").getAsString()+"' WHERE name = '"+json.get("pname").getAsString()+"';");
 
         String query;
         try{
@@ -209,6 +237,9 @@ public class Employee {
                 }
                 if (json.has("years")) {
                     em.setYears(json.get("years").getAsInt());
+                    double salary=json.get("main_salary").getAsDouble();
+                    String q="UPDATE salary SET main_salary = "+(salary+salary*em.getYears()*0.15)+" WHERE name = '"+em.getName()+"';";
+                    updateDB(q);
                 }
 
                 query="UPDATE permanent SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() + "', department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) + ", years = " + em.getYears() + " WHERE name = '" + json.get("pname").getAsString() + "';";
@@ -264,26 +295,135 @@ public class Employee {
 
                 query="UPDATE contracted SET name = '" + em.getName() + "', address = '" + em.getAddress() + "', phone_number = '" + em.getTelephone_num() + "', iban = '" + em.getIBAN() + "', bank_name = '" + em.getBank_name() + "', start_date = '" + em.getStartDate() +  "', department = '" + em.getDepartment() + "', children = " + em.getNumOfChildren() + ", married = " + (em.isMarried()?1:0) + ", category = " + (em.getCategory()==Category.ADMINISTRATIVE?0:1) +", end_date = '" + em.getEndDate() + "' WHERE name = '" + json.get("pname").getAsString() + "';";
             }
+
             System.out.println(query);
             updateDB(query);
             JsonArray arr= json.get("ages").getAsJsonArray();
             int[] numbers = new int[em.getNumOfChildren()];
 
+            int children=0;
+            if(em.isMarried()){
+                children+=1;
+            }
             // Extract numbers from JSON array.
             for (int i = 0; i < em.getNumOfChildren(); ++i) {
+
                 numbers[i] = arr.get(i).getAsInt();
+                if(numbers[i]<18){
+                    children+=1;
+                }
             }
             for(int i=0;i<numbers.length;i++) {
                 updateDB("INSERT INTO ages(name, age)VALUES('" + em.getName() + "'," +numbers[i]+");");
             }
+
+            if(em.isMarried()){
+                children+=1;
+            }
+            updateDB("UPDATE salary SET bonus = " +(json.get("bonus").getAsDouble()+0.05*children*json.get("main_salary").getAsDouble()) + " WHERE name = '" + em.getName() + "';");
 
         }catch(Exception e){
             throw new RuntimeException(e);
         }
         return em;
     }
+    public static void changePermanentAdministrativeSalaries( int salary){
+        try{
+            String query="SELECT name,years FROM permanent WHERE category=0;";
+            ResultSet res = getFromDB(query);
+            while(res.next()){
+                String name = res.getString("name");
+                int years = res.getInt("years");
 
+                updateDB("UPDATE salary SET main_salary =" + (salary+0.15*years*salary) + " WHERE name = '" + name + "';");
+            }
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static void changePermanentEducationalSalaries( int salary){
+        try{
+            String query="SELECT name,years FROM permanent WHERE category=1;";
+            ResultSet res = getFromDB(query);
+            while(res.next()){
+                String name = res.getString("name");
+                int years = res.getInt("years");
 
+                updateDB("UPDATE salary SET main_salary =" + (salary+0.15*years*salary) + " WHERE name = '" + name + "';");
+            }
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static void changeContractedSalary(String name,int salary){
+        try{
+            updateDB("UPDATE salary SET main_salary =" + salary+ " WHERE name = '" + name + "';");
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static void changeBonuses(int basic_salary_admin,int search_bonus,int basic_salary_edu,int library_bonus){
+        try {
+            String queryP = "SELECT name,category,married FROM permanent;";
+            ResultSet resP = getFromDB(queryP);
+            while(resP.next()){
+                String name = resP.getString("name");
+                int category = resP.getInt("category");
+                int married = resP.getInt("married");
+
+                String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
+                ResultSet resA = getFromDB(queryA);
+                int children=0;
+                if(married==1){
+                    children+=1;
+                }
+                while(resA.next()){
+                    int age = resA.getInt("age");
+                    if(age<18){
+                        children+=1;
+                    }
+                }
+                if(category==0){
+                    updateDB("UPDATE salary SET bonus = " +(0.05*children*basic_salary_admin) + " WHERE name = '" + name + "';");
+                }else{
+                    updateDB("UPDATE salary SET bonus = " +(0.05*children*basic_salary_edu + search_bonus) + " WHERE name = '" + name + "';");
+                }
+            }
+
+            String queryC = "SELECT name,category,married FROM contracted;";
+            ResultSet resC = getFromDB(queryC);
+            while(resC.next()){
+                String name = resC.getString("name");
+                int category = resC.getInt("category");
+                int married = resC.getInt("married");
+                String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
+                ResultSet resA = getFromDB(queryA);
+                int children=0;
+                if(married==1){
+                    children+=1;
+                }
+                while(resA.next()){
+                    int age = resA.getInt("age");
+                    if(age<18){
+                        children+=1;
+                    }
+                }
+                String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
+                ResultSet resS = getFromDB(queryS);
+                int salary=0;
+                while(resS.next()){
+                    salary = resS.getInt("main_salary");
+                }
+                if(category==0){
+                    updateDB("UPDATE salary SET bonus = " +(0.05*children*salary) + " WHERE name = '" + name + "';");
+                }else{
+                    updateDB("UPDATE salary SET bonus = " +(0.05*children*salary + library_bonus) + " WHERE name = '" + name + "';");
+                }
+            }
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public String getName() {

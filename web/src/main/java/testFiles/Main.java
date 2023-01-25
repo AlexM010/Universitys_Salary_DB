@@ -1,6 +1,7 @@
 package testFiles;
 
 import classes.Employee;
+import classes.Payment;
 
 import java.io.IOException;
 
@@ -23,9 +24,26 @@ public class Main {
                 " \"numOfChildren\": 4,\n" +
                 " \"ages\": [23,18,16,12],\n" +
                 " \"married\": true,\n" +
-                " \"category\": true,\n" +
+                " \"category\": false,\n" +
                 " \"years\": 12,\n" +
-                " \"main_salary\": 20000.00\n" +
+                " \"bonus\": 0,\n" +
+                " \"main_salary\": 100.00\n" +
+                "}");
+        Employee e4=Employee.addEmployee("{\n" +
+                "   \"contract\": true,\n" +
+                "   \"name\": \"Emily Johnson\",\n" +
+                "   \"address\": \"123 Main Street\",\n" +
+                "   \"telephone_num\": \"555-555-1212\",\n" +
+                "   \"IBAN\": \"US012345678901234567890\",\n" +
+                "   \"bank_name\": \"Chase Bank\",\n" +
+                "   \"startDate\": \"2022-01-01\",\n" +
+                "   \"department\": \"Marketing\",\n" +
+                "   \"numOfChildren\": 0,\n" +
+                "   \"married\": false,\n" +
+                "   \"category\": true,\n" +
+                "   \"endDate\": \"2023-01-01\",\n" +
+                "   \"bonus\": 1000.00,\n" +
+                " \"main_salary\": 30000.00\n" +
                 "}");
         System.in.read();
         e3=Employee.editEmployee("{\n" +
@@ -41,9 +59,15 @@ public class Main {
                 " \"numOfChildren\": 2,\n" +
                 " \"ages\": [32,16],\n" +
                 " \"married\": false,\n" +
-                " \"category\": false,\n" +
+                " \"category\": true,\n" +
+                " \"main_salary\": 100.00,\n" +
+                "\"bonus\": 50.00,\n" +
                 " \"years\": 7\n" +
                 "}");
+                Employee.changeContractedSalary("Emily Johnson", 100);
+                Employee.changeBonuses(100,50,100,50);
+                Payment.addPayment("Alex Markodimitrakis","2022-05-20",100);
+   //     Employee.changePermanentEducationalSalaries(15000);
       /*  Employee e4=Employee.addEmployee("{\n" +
                 "   \"contract\": true,\n" +
                 "   \"name\": \"Emily Johnson\",\n" +
