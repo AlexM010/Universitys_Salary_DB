@@ -19,7 +19,6 @@ public class Main {
                 " \"IBAN\": \"GR2701121149381872825494513\",\n" +
                 " \"bank_name\": \"Piraeus Bank\",\n" +
                 " \"startDate\": \"2022-05-23\",\n" +
-                " \"salaryId\": 12,\n" +
                 " \"department\": \"Programming\",\n" +
                 " \"numOfChildren\": 4,\n" +
                 " \"ages\": [23,18,16,12],\n" +
@@ -38,14 +37,12 @@ public class Main {
                 " \"IBAN\": \"GR51701121149381872825494513\",\n" +
                 " \"bank_name\": \"Pancreta Bank\",\n" +
                 " \"startDate\": \"2022-05-20\",\n" +
-                " \"salaryId\": 7,\n" +
                 " \"department\": \"Prog\",\n" +
                 " \"numOfChildren\": 2,\n" +
                 " \"ages\": [32,16],\n" +
                 " \"married\": false,\n" +
                 " \"category\": false,\n" +
                 " \"years\": 7\n" +
-
                 "}");
       /*  Employee e4=Employee.addEmployee("{\n" +
                 "   \"contract\": true,\n" +
