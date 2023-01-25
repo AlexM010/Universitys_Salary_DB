@@ -353,7 +353,6 @@ public class Employee {
             while(res.next()){
                 String name = res.getString("name");
                 int years = res.getInt("years");
-
                 updateDB("UPDATE salary SET main_salary =" + (salary+0.15*years*salary) + " WHERE name = '" + name + "';");
             }
         }catch(Exception e){
@@ -433,7 +432,6 @@ public class Employee {
             throw new RuntimeException(e);
         }
     }
-
 
     public String getName() {
         return name;

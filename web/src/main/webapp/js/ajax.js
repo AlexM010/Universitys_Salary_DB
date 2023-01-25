@@ -1,5 +1,8 @@
 
-var permanentSalary = 2000;
+var basic_salary_admin = 2000;
+var basic_salary_edu = 1200;
+var search_bonus = 100;
+var library_bonus = 50;
 function new_permanent(){
      // let data = {
      //     "contract": false,
@@ -22,7 +25,7 @@ function new_permanent(){
     let formData = new FormData(form);
     let data;
     if(flag===false){
-        data = {"contract": flag,"main_salary":null};
+        data = {"contract": flag,"main_salary":null,"bonus":0};
     }else {
         data = {"contract": flag};
     }
@@ -35,7 +38,7 @@ function new_permanent(){
             data[key] = parseInt(value.toString());
         }else if(key==="main_salary"){
             data[key] = parseInt(value.toString());
-        } else if(key === 'ages'){
+        }else if(key === 'ages'){
             let array = value.split(",").map(Number);
             data[key] = array;
         } else{
@@ -43,8 +46,21 @@ function new_permanent(){
         }
     });
     if(flag===false){
-        data["main_salary"] = permanentSalary;
+        if(data["category"]===false){
+            data["main_salary"] = basic_salary_admin;
+
+        }else if(data["category"]===true){
+            data["main_salary"] = basic_salary_edu;
+            data["bonus"] = search_bonus;
+        }
+    }else{
+         if(data["category"]===true){
+             data["bonus"] = library_bonus;
+         }else{
+             data["bonus"] = 0;
+         }
     }
+    console.log(data["main_salary"]);
     console.log(data["main_salary"]);
     let xhr = new XMLHttpRequest();
     xhr.onload =  function (){
@@ -60,8 +76,6 @@ function new_permanent(){
                     window.location.href = "http://localhost:8080/web";
                 }
             });
-
-
         }
         else if(xhr.status!==200){
             console.log("not success");
@@ -73,8 +87,6 @@ function new_permanent(){
                 text: 'Something went wrong!',
                 timer: 2000,
                 });
-
-
         }
     }
 
@@ -153,10 +165,9 @@ function add_contracted(){
 
 function edit(){
     document.getElementById("newAdd").style.display = "none";
+    document.getElementById("editSalary").style.display = "none";
     document.getElementById("search").style.display = "block";
     document.getElementById("searchResult").innerHTML= " ";
-
-
 }
 function getUser() {
     let html = "<br><br><form id='updateInfo_form' name='updateInfo_form' onsubmit='change(); return false;'>";
@@ -302,4 +313,46 @@ function change(){
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
 
     xhr.send(JSON.stringify(data));
+}
+
+function editSalary(){
+    document.getElementById("newAdd").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("editSalary").style.display = "block";
+    document.getElementById("salaryField").innerHTML= " ";
+}
+
+function changeSalary(){
+    document.getElementById("salary_msg").innerHTML = "The new main salary must be bigger than"+ basic_salary_admin;
+    let temp = document.getElementById("salaryField").value;
+
+    if(temp<=basic_salary_admin){
+        document.getElementById("salary_msg").innerHTML = "The new main salary must be bigger than "+ basic_salary_admin;
+        document.getElementById("salary_msg").style.color = "darkred";
+    }else{
+        basic_salary_admin = temp
+        servlet_changeSalary(basic_salary_admin);
+    }
+    console.log(basic_salary_admin);
+}
+
+function servlet_changeSalary(new_salary){
+
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            document.getElementById("salary_msg").innerHTML = "Success";
+            document.getElementById("salary_msg").style.color = "green";
+        }
+        else if(xhr.status!==200){
+            document.getElementById("salary_msg").innerHTML = "Error-" + xhr.status;
+            document.getElementById("salary_msg").style.color = "darkred";
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+
+    xhr.open('PUT', 'changeSalary');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(new_salary);
 }
