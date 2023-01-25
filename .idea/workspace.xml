@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="">
+    <list default="true" id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="many changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,13 +41,17 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Smart Tomcat.Unnamed">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
       <module name="web" />
@@ -106,9 +104,9 @@
       </option>
       <option name="tomcatInfo">
         <TomcatInfo>
-          <option name="name" value="Apache Tomcat/9.0.71" />
-          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.71" />
-          <option name="version" value="9.0.71.0" />
+          <option name="name" value="Apache Tomcat/9.0.70 (3)" />
+          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.70" />
+          <option name="version" value="9.0.70.0" />
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
@@ -131,12 +129,27 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="" />
+      <changelist id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="many changes" />
       <created>1673542026405</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673542026405</updated>
+      <workItem from="1674663562339" duration="1168000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
