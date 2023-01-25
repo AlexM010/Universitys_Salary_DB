@@ -50,13 +50,34 @@ function new_permanent(){
     xhr.onload =  function (){
         if(xhr.readyState === 4 && xhr.status === 200){
             console.log("ok");
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Employee added successfully!',
+                showConfirmButton: true,
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "http://localhost:8080/web";
+                }
+            });
+
+
         }
         else if(xhr.status!==200){
             console.log("not success");
             console.log(xhr.status);
             console.log(xhr.readyState);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                timer: 2000,
+                });
+
+
         }
     }
+
         if(flag===false){
             xhr.open('POST', 'AddPermanent');
         }else{

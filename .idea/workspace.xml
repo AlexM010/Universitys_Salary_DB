@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/db/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +24,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -32,10 +46,27 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main (1)">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
+      <module name="web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testFiles.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
       <module name="Universitys_Salary_DB" />
@@ -62,8 +93,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="contextPath" value="/web" />
+      <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/9.0.71" />
+          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.71" />
+          <option name="version" value="9.0.71.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main (1)" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Smart Tomcat.Unnamed" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>

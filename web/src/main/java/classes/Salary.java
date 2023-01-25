@@ -15,32 +15,15 @@ public class Salary {
     private double familyBonus;
     private double searchBonus;
     private double libraryBonus;
-    public static  Salary addSalary(String name, double salary){
+    public static  Salary addSalary(String name, double salary,double bonus){
         Salary s= new Salary();
         s.setMainSalary(salary);
         s.setName(name);
-        System.out.println("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+0+");");
+        System.out.println("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+bonus+");");
 
-        updateDB("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+0+");");
+        updateDB("INSERT INTO salary(name,main_salary,bonus) VALUES('"+s.getName()+"',"+s.getMainSalary()+","+bonus+");");
 
         return s;
-    }
-
-    public double calculateSalary(Salary s){
-
-        ResultSet res1=getFromDB("SELECT * FROM permanent WHERE name = '"+s.getName()+"';");
-        ResultSet res2=getFromDB("SELECT * FROM contracted WHERE name = '"+s.getName()+"';");
-        boolean res;
-        try {
-            res = res1.next();
-            if(!res)
-                res2.next();
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-
-        totalSalary=currentSalary + totalBonus;
-        return totalSalary;
     }
 
     public double getCurrentSalary() {
