@@ -61,6 +61,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -77,6 +78,7 @@
   }
 }</component>
   <component name="RunManager" selected="Smart Tomcat.Unnamed">
+
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
       <module name="web" />
@@ -126,9 +128,9 @@
       <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
       <option name="tomcatInfo">
         <TomcatInfo>
-          <option name="name" value="Apache Tomcat/9.0.70 (3)" />
-          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.70" />
-          <option name="version" value="9.0.70.0" />
+          <option name="name" value="Apache Tomcat/9.0.71" />
+          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.71" />
+          <option name="version" value="9.0.71.0" />
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
@@ -151,7 +153,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="many changes" />
+      <changelist id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="" />
       <created>1673542026405</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -159,6 +161,7 @@
       <workItem from="1674663562339" duration="1168000" />
       <workItem from="1674745868804" duration="4236000" />
       <workItem from="1674752320376" duration="15086000" />
+
     </task>
     <task id="LOCAL-00001" summary="Edit Salary of Every Category Simultaneously">
       <created>1674662363538</created>
@@ -174,7 +177,21 @@
       <option name="project" value="LOCAL" />
       <updated>1674664386985</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Family Error Fixed">
+      <created>1674665000524</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674665000524</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Payments Serverside Complete">
+      <created>1674674635420</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674674635420</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,5 +207,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Edit Salary of Every Category Simultaneously" />
+    <MESSAGE value="Family Error Fixed" />
+    <MESSAGE value="Payments Serverside Complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Payments Serverside Complete" />
   </component>
 </project>

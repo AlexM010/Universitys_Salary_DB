@@ -8,6 +8,8 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.io.BufferedReader;
+import java.sql.SQLException;
+
 import static db.Database.getFromDB;
 import static db.Database.updateDB;
 
@@ -75,6 +77,9 @@ public class Employee {
                 children++;
             }
         }
+
+
+
         e.setChildren(numbers);
         updateDB("INSERT INTO permanent(name, address, phone_number, iban, bank_name, start_date, department, children, married, category, years)" + "SELECT"+
                 " '"+e.getName()+"','"+e.getAddress()+"','"+e.getTelephone_num()+"','"+e.getIBAN()+"','"+e.getBank_name()+"','"+e.getStartDate()+"','"+e.getDepartment()+"',"+ e.getNumOfChildren() +","+ (e.isMarried() ? 1 : 0) +","+ e.c +","+ e.getYears() +" WHERE NOT EXISTS (SELECT 1 FROM contracted WHERE name = '"+e.getName()+"');");
@@ -353,6 +358,7 @@ public class Employee {
             while(res.next()){
                 String name = res.getString("name");
                 int years = res.getInt("years");
+
                 updateDB("UPDATE salary SET main_salary =" + (salary+0.15*years*salary) + " WHERE name = '" + name + "';");
             }
         }catch(Exception e){
@@ -433,6 +439,123 @@ public class Employee {
         }
     }
 
+    public static void firePermanentEmployee(String name,String date){
+        try {
+            String query = "SELECT * FROM payment WHERE name ='" + name + "' AND date ='" + date + "';";
+            ResultSet res = getFromDB(query);
+            if (res.next()) {
+                query = "DELETE FROM permanent WHERE name ='" + name + "';";
+                updateDB(query);
+                query = "DELETE FROM ages WHERE name ='" + name + "';";
+                updateDB(query);
+                query = "DELETE FROM salary WHERE name ='" + name + "';";
+                updateDB(query);
+            }else{
+                throw new RuntimeException("Employee cannot be fired because he/she has not been paid yet or does not exist");
+            }
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static String getEmployeeInfo(String name,int basic_salary_admin,int search_bonus,int basic_salary_edu,int library_bonus){
+        //get all info from employees in  permanent and contracted tables the  kids ages of emplloyee on ages table and full salary description
+        //like this: Permanent Employee name: name Address phone_number iban bank_name start date department children married:yes Category: Admin Years of service: years Salary: salary+bonus
+        //Contracted Employee name: name Address phone_number iban bank_name start date end_date department children married:yes Category: Admin Salary: salary+bonus
+        try {
+            String query = "SELECT * FROM permanent WHERE name ='" + name + "';";
+            ResultSet res = getFromDB(query);
+            if (res.next()) {
+                String address = res.getString("address");
+                String phone_number = res.getString("phone_number");
+                String iban = res.getString("iban");
+                String bank_name = res.getString("bank_name");
+                String start_date = res.getString("start_date");
+                String department = res.getString("department");
+                int category = res.getInt("category");
+                int married = res.getInt("married");
+                int years = res.getInt("years");
+                String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
+                ResultSet resA = getFromDB(queryA);
+                int children=0;
+                while(resA.next()){
+                    String ages="[";
+                    int age = resA.getInt("age");
+                    if(age<18){
+                        children+=1;
+                    }
+                    ages+=age+",";
+                    ages+="]";
+                }
+                if(married==1){
+                    children+=1;
+                }else{
+                    children=0;
+                }
+                String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
+                ResultSet resS = getFromDB(queryS);
+                int salary=0;
+                int bonus=0;
+                while(resS.next()){
+                    salary = resS.getInt("main_salary");
+                    bonus = resS.getInt("bonus");
+                }
+                if(category==0){
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Admin - Years of service: " + years + " - Salary: " + (salary+bonus);
+                }else{
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Education - Years of service: " + years + " - Salary: " + (salary+bonus);
+                }
+            }else{
+                query = "SELECT * FROM contracted WHERE name ='" + name + "';";
+                res = getFromDB(query);
+                if (res.next()) {
+                    String address = res.getString("address");
+                    String phone_number = res.getString("phone_number");
+                    String iban = res.getString("iban");
+                    String bank_name = res.getString("bank_name");
+                    String start_date = res.getString("start_date");
+                    String end_date = res.getString("end_date");
+                    String department = res.getString("department");
+                    int category = res.getInt("category");
+                    int married = res.getInt("married");
+                    int children=0;
+                    String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
+                    ResultSet resA = getFromDB(queryA);
+                    while(resA.next()){
+                        String ages="[";
+                        int age = resA.getInt("age");
+                        if(age<18){
+                            children+=1;
+                        }
+                        ages+=age+",";
+                        ages+="]";
+                    }
+                    if(married==1){
+                        children+=1;
+                    }else{
+                        children=0;
+                    }
+                    String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
+                    ResultSet resS = getFromDB(queryS);
+                    int salary=0;
+                    int bonus=0;
+                    while(resS.next()){
+                        salary = resS.getInt("main_salary");
+                        bonus = resS.getInt("bonus");
+                    }
+                    if(category==0){
+                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Administrator Salary: " + (salary+bonus);
+                    }else{
+                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Educational Salary: " + (salary+bonus);
+                    }
+                }else{
+                    throw new RuntimeException("Employee does not exist");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public String getName() {
         return name;
     }
@@ -564,5 +687,7 @@ public class Employee {
         }
         return sb.toString();
     }
+    /* JsonObject method to merge two json objects */
+
 }
 
