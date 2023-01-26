@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="">
+    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="Payments Serverside Complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +21,25 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="AlexM010" />
+        <option name="repository" value="Universitys_Salary_DB" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8a04cd3d-abd1-4632-9f2f-0ba60bb0b6d7" />
+        <option name="url" value="https://github.com/AlexM010/Universitys_Salary_DB.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -47,10 +63,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main (1)">
@@ -101,9 +121,6 @@
       <predefined_log_file id="Tomcat Host Manager Log" />
       <option name="contextPath" value="/web" />
       <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="tomcatInfo">
         <TomcatInfo>
           <option name="name" value="Apache Tomcat/9.0.71" />
@@ -136,7 +153,57 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673542026405</updated>
+      <workItem from="1674724423048" duration="7235000" />
     </task>
+    <task id="LOCAL-00001" summary="Edit Salary of Every Category Simultaneously">
+      <created>1674662363538</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674662363538</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Family Error Fixed">
+      <created>1674664386985</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1674664386985</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Family Error Fixed">
+      <created>1674665000524</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674665000524</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Payments Serverside Complete">
+      <created>1674674635420</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674674635420</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Edit Salary of Every Category Simultaneously" />
+    <MESSAGE value="Family Error Fixed" />
+    <MESSAGE value="Payments Serverside Complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Payments Serverside Complete" />
   </component>
 </project>

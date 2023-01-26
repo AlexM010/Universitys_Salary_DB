@@ -55,9 +55,12 @@ function new_permanent(){
         }
     }else{
          if(data["category"]===true){
-            data["bonus"] = library_bonus;
-        }
+             data["bonus"] = library_bonus;
+         }else{
+             data["bonus"] = 0;
+         }
     }
+    console.log(data["main_salary"]);
     console.log(data["main_salary"]);
     let xhr = new XMLHttpRequest();
     xhr.onload =  function (){
@@ -73,8 +76,6 @@ function new_permanent(){
                     window.location.href = "http://localhost:8080/web";
                 }
             });
-
-
         }
         else if(xhr.status!==200){
             console.log("not success");
@@ -86,8 +87,6 @@ function new_permanent(){
                 text: 'Something went wrong!',
                 timer: 2000,
                 });
-
-
         }
     }
 
