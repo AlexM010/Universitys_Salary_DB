@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="Payments Serverside Complete">
+    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="Most of Database's Queries Completed">
+      <change afterPath="$PROJECT_DIR$/Project_Report/SQL.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,20 +58,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main (1)">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
@@ -153,7 +152,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673542026405</updated>
-      <workItem from="1674724423048" duration="7235000" />
+      <workItem from="1674724423048" duration="7385000" />
+      <workItem from="1674761537991" duration="3511000" />
     </task>
     <task id="LOCAL-00001" summary="Edit Salary of Every Category Simultaneously">
       <created>1674662363538</created>
@@ -183,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674674635420</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Most of Database's Queries Completed">
+      <created>1674733078180</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674733078180</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +211,7 @@
     <MESSAGE value="Edit Salary of Every Category Simultaneously" />
     <MESSAGE value="Family Error Fixed" />
     <MESSAGE value="Payments Serverside Complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="Payments Serverside Complete" />
+    <MESSAGE value="Most of Database's Queries Completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Most of Database's Queries Completed" />
   </component>
 </project>

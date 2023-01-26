@@ -73,6 +73,7 @@ public class Main {
                 System.out.println(Employee.getEmployeeInfo("Alexandros Markodimitrakis",100,50,100,50));
                 System.out.println(Employee.getEmployeeInfo("Emily Johnson",100,50,100,50));
                 System.out.println(Salary.getTotalSalaryStatistics());
+        System.out.println(Payment.doPayments("2022-01-07",100,50,100,50));
    //     Employee.changePermanentEducationalSalaries(15000);
       /*  Employee e4=Employee.addEmployee("{\n" +
                 "   \"contract\": true,\n" +

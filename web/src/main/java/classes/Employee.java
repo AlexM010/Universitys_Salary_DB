@@ -500,9 +500,9 @@ public class Employee {
                     bonus = resS.getInt("bonus");
                 }
                 if(category==0){
-                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Admin - Years of service: " + years + " - Salary: " + (salary+bonus);
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Admin - Years of service: " + years + " - Salary: " + (salary+bonus)+"Main salary: "+salary+" Bonus: "+bonus;
                 }else{
-                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Education - Years of service: " + years + " - Salary: " + (salary+bonus);
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Education - Years of service: " + years + " - Salary: " + (salary+bonus)+"Main salary: "+salary+" Bonus: "+bonus;
                 }
             }else{
                 query = "SELECT * FROM contracted WHERE name ='" + name + "';";
@@ -542,10 +542,10 @@ public class Employee {
                         salary = resS.getInt("main_salary");
                         bonus = resS.getInt("bonus");
                     }
-                    if(category==0){
-                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Administrator Salary: " + (salary+bonus);
+                    if(category==0) {
+                        return "Contracted Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - end_date " + end_date + " - department " + department + " - children " + children + " - married:" + (married == 1 ? "yes" : "no") + " - Category: Admin - Salary: " + (salary + bonus)+"Main salary: "+salary+" Bonus: "+bonus;
                     }else{
-                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Educational Salary: " + (salary+bonus);
+                        return "Contracted Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - end_date " + end_date + " - department " + department + " - children " + children + " - married:" + (married == 1 ? "yes" : "no") + " - Category: Education - Salary: " + (salary + bonus)+"Main salary: "+salary+" Bonus: "+bonus;
                     }
                 }else{
                     throw new RuntimeException("Employee does not exist");

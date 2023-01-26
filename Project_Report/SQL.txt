@@ -1,0 +1,46 @@
+CREATE DATABASE IF NOT EXISTS salary_db;
+
+CREATE TABLE permanent(
+    name VARCHAR(255) PRIMARY KEY,
+    address VARCHAR(255),
+    phone_number VARCHAR(255),
+    iban VARCHAR(255),
+    bank_name VARCHAR(255),
+    start_date DATE,
+    salary_id INTEGER,
+    department VARCHAR(255),
+    children INTEGER,
+    married BIT,
+    category BIT,
+    years INTEGER);
+
+CREATE TABLE contracted(
+        name VARCHAR(255) PRIMARY KEY,
+        address VARCHAR(255),
+        phone_number VARCHAR(255),
+        iban VARCHAR(255),
+        bank_name VARCHAR(255),
+        start_date DATE,
+        salary_id INTEGER,
+        department VARCHAR(255),
+        children INTEGER,
+        married BIT,
+        category BIT,
+        end_date DATE);
+CREATE TABLE ages(
+        name VARCHAR(255) PRIMARY KEY,
+        age INTEGER);
+
+CREATE TABLE salary(
+   name VARCHAR(255),
+   main_salary DOUBLE,
+   bonus DOUBLE,
+   FOREIGN KEY (name) REFERENCES permanent(name),
+   FOREIGN KEY (name) REFERENCES contracted(name));
+
+CREATE TABLE payment (
+    name VARCHAR(255),
+    date DATE,
+    amount DOUBLE,
+    FOREIGN KEY (name) REFERENCES permanent(name),
+    FOREIGN KEY (name) REFERENCES contracted(name));
