@@ -544,8 +544,8 @@ public class Employee {
     public void setYears(int years) {
         this.years = years;
     }
-    static class json{
-        static JsonObject getJson(String json){
+    public static class json{
+        public static JsonObject getJson(String json){
             JsonParser parser=new JsonParser();
             JsonElement elem= parser.parse(json);
             return elem.getAsJsonObject();
