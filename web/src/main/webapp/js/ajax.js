@@ -1,8 +1,27 @@
 
-var basic_salary_admin = 2000;
-var basic_salary_edu = 1200;
-var search_bonus = 100;
-var library_bonus = 50;
+var basic_salary_admin ;
+var basic_salary_edu ;
+var search_bonus ;
+var library_bonus;
+function init(){
+    if(!localStorage.getItem("flag")){
+        localStorage.setItem("basic_salary_admin","2000");
+        localStorage.setItem("basic_salary_edu","1000");
+        localStorage.setItem("search_bonus","200");
+        localStorage.setItem("library_bonus","100");
+        localStorage.setItem("flag", true);
+    }
+    basic_salary_admin = parseInt(localStorage.getItem("basic_salary_admin"));
+    basic_salary_edu = parseInt(localStorage.getItem("basic_salary_edu"));
+    search_bonus = parseInt(localStorage.getItem("search_bonus"));
+    library_bonus = parseInt(localStorage.getItem("library_bonus"));
+}
+function reset() {
+    localStorage.clear();
+    return "clear";
+}
+
+
 function new_permanent(){
      // let data = {
      //     "contract": false,
@@ -177,19 +196,22 @@ function getUser() {
             // $("#searchResult").html(createTableFromJSON(JSON.parse(xhr.responseText)));
             const data = JSON.parse(xhr.responseText);
             flag2 = data["contract"];
-            // html += "<div class='mb-3'><label for='contract' class='form-label'>First Name</label>" +
-            //     "<input id='contract' name='contract' type='text' class='form-control' aria-label='Name' value='" + flag2 + "' /></div>";
-            for (const x in data["newData"]){
+            if(flag2){
+                html += "<div class='mb-3'><label for='contract' class='form-label'>Contract</label>" +
+                    "<div onChange='selection()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' >Permanent</option> <option value='1' selected>Contracted</option> </select> </div></div>";
+            }
+            else{
+                html += "<div class='mb-3'><label for='contract' class='form-label'>Contract</label>" +
+                    "<div onChange='selection()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' selected>Permanent</option> <option value='1'>Contracted</option> </select> </div></div>";
+            }
+
+
+            for (const x in data){
                 let label = x;
-                console.log(data["newData"][x]);
-                let input = data["newData"][x];
+                console.log(data[x]);
+                let input = data[x];
 
                 switch (label){
-                    case "contract": {
-                        html += "<div class='mb-3'><label for='name' class='form-label'>First Name</label>" +
-                            "<input id='name' name='contract' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
-                        break;
-                    }
                     case "name": {
                         html += "<div class='mb-3'><label for='name' class='form-label'>First Name</label>" +
                             "<input id='name' name='name' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
@@ -230,6 +252,17 @@ function getUser() {
                             "<input id='department' name='department' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
                         break;
                     }
+                    case "married": {
+                        if(input === 0){
+                            html += "<div class='mb-3'><label for='married' class='form-label'>married</label>" +
+                                "<div><select id='married' name='married' class='form-select' aria-label='Default select example'> <option value='false' selected>Unmarried</option> <option value='true'>Married</option> </select> </div></div>";
+                        }else{
+                            html += "<div class='mb-3'><label for='married' class='form-label'>married</label>" +
+                                "<div><select id='married' name='married' class='form-select' aria-label='Default select example'> <option value='false'>Unmarried</option> <option value='true' selected>Married</option> </select> </div></div>";
+                        }
+
+                        break;
+                    }
                     case "children": {
                         html += "<div class='mb-3'><label for='children' class='form-label'>Children</label>" +
                             "<input id='children' name='numOfChildren' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
@@ -238,13 +271,22 @@ function getUser() {
                         break;
                     }
                     case "category": {
-                        html += "<div class='mb-3'><label for='category' class='form-label'>category</label>" +
-                            "<input id='category' name='category' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
+                        if(input === 0){
+                            html += "<div class='mb-3'><label for='category' class='form-label'>married</label>" +
+                                "<div><select id='category' name='category' class='form-select' aria-label='Default select example'> <option value='false' selected>Administrative</option> <option value='true'>Educational</option> </select> </div></div>";
+                        }else{
+                            html += "<div class='mb-3'><label for='married' class='form-label'>married</label>" +
+                                "<div><select id='category' name='category' class='form-select' aria-label='Default select example'> <option value='false'>Administrative</option> <option value='true' selected>Educational</option> </select> </div></div>";
+                        }
+
+
                         break;
                     }
-                    case "years": {
-                        html += "<div class='mb-3'><label for='years' class='form-label'>years</label>" +
-                            "<input id='years' name='years' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
+                    case "main_salary": {
+
+                        html += "<div class='mb-3'><label for='main_salary' class='form-label'>salary</label>" +
+                            "<input id='main_salary' name='main_salary' type='text' class='form-control' aria-label='Name' value='" + input + "' /></div>";
+
                         break;
                     }
                     case "years": {
@@ -254,6 +296,7 @@ function getUser() {
                     }
                 }
             }
+
             html += "<div style='margin-bottom:5px; position: relative; top: 0.5em; color: green;' id='update_msg' class='form-text'></div><br><input type='submit' id='submit' value='Update Info'></form>"
             $("#searchResult").html(html);
         } else if (xhr.status !== 200) {
@@ -279,10 +322,12 @@ function createTableFromJSON(data) {
 function change(){
     let form = document.getElementById("updateInfo_form")
     let pname = document.getElementById("searchField").value;
+    let bonus;
     console.log(pname);
     console.log(flag2);
+
     let formData = new FormData(form);
-    let data = {"contract": flag2,"pname":pname};
+    let data = {"contract": flag2,"pname":pname,"bonus":0,"main_salary":basic_salary_admin};
 
     formData.forEach(function (value,key){
         if(key==="married"||key==="category"){
@@ -296,7 +341,36 @@ function change(){
             data[key] = value;
         }
     });
+    if(data["contract"]===false){
+        if(data["category"]===false){
+            data["main_salary"] = basic_salary_admin;
 
+        }else if(data["category"]===true){
+            data["main_salary"] = basic_salary_edu;
+            data["bonus"] = search_bonus;
+        }
+    }else{
+        if(data["category"]===true){
+            data["bonus"] = library_bonus;
+        }else{
+            data["bonus"] = 0;
+        }
+    }
+    // if(flag===false){
+    //     if(data["category"]===false){
+    //         data["main_salary"] = basic_salary_admin;
+    //
+    //     }else if(data["category"]===true){
+    //         data["main_salary"] = basic_salary_edu;
+    //         data["bonus"] = search_bonus;
+    //     }
+    // }else{
+    //     if(data["category"]===true){
+    //         data["bonus"] = library_bonus;
+    //     }else{
+    //         data["bonus"] = 0;
+    //     }
+    // }
     let xhr = new XMLHttpRequest();
     xhr.onload =  function (){
         if(xhr.readyState === 4 && xhr.status === 200){
@@ -322,22 +396,61 @@ function editSalary(){
     document.getElementById("salaryField").innerHTML= " ";
 }
 
-function changeSalary(){
-    document.getElementById("salary_msg").innerHTML = "The new main salary must be bigger than"+ basic_salary_admin;
+function change_admin_Salary(){
+
     let temp = document.getElementById("salaryField").value;
 
     if(temp<=basic_salary_admin){
-        document.getElementById("salary_msg").innerHTML = "The new main salary must be bigger than "+ basic_salary_admin;
+        document.getElementById("salary_msg").innerHTML = "The new admin salary must be bigger than the past salary of "+ basic_salary_admin;
         document.getElementById("salary_msg").style.color = "darkred";
     }else{
-        basic_salary_admin = temp
+        basic_salary_admin = temp;
+        localStorage.setItem("basic_salary_admin",basic_salary_admin);
         servlet_changeSalary(basic_salary_admin);
     }
     console.log(basic_salary_admin);
 }
+function change_edu_Salary(){
 
+    let temp = document.getElementById("edu_Field").value;
+
+    if(temp<=basic_salary_edu){
+        document.getElementById("edu_msg").innerHTML = "The new main salary must be bigger than "+ basic_salary_edu;
+        document.getElementById("edu_msg").style.color = "darkred";
+    }else{
+        basic_salary_edu = temp;
+        localStorage.setItem("basic_salary_edu",basic_salary_edu);
+
+        servlet_changeEduSalary(basic_salary_edu);
+    }
+    console.log(basic_salary_edu);
+}
+function change_search_bonus(){
+    let temp = document.getElementById("sb_Field").value;
+    if(temp<=search_bonus ){
+        document.getElementById("sb_msg").innerHTML = "The new main salary must be bigger than "+ search_bonus;
+        document.getElementById("sb_msg").style.color = "darkred";
+    }else{
+        search_bonus = temp;
+        localStorage.setItem("search_bonus",search_bonus);
+        servlet_changeBonus(1);
+    }
+    console.log(search_bonus);
+}
+function change_lib_bonus(){
+
+    let temp = document.getElementById("lb_Field").value;
+    if(temp<=library_bonus){
+        document.getElementById("lb_msg").innerHTML = "The new main salary must be bigger than "+ library_bonus;
+        document.getElementById("lb_msg").style.color = "darkred";
+    }else{
+        library_bonus = temp;
+        localStorage.setItem("library_bonus",library_bonus);
+        servlet_changeBonus(0);
+    }
+    console.log(library_bonus);
+}
 function servlet_changeSalary(new_salary){
-
     let xhr = new XMLHttpRequest();
     xhr.onload =  function (){
         if(xhr.readyState === 4 && xhr.status === 200){
@@ -351,8 +464,55 @@ function servlet_changeSalary(new_salary){
             console.log(xhr.readyState);
         }
     }
-
     xhr.open('PUT', 'changeSalary');
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xhr.send(new_salary);
+}
+function servlet_changeEduSalary(new_salary){
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            document.getElementById("edu_msg").innerHTML = "Success";
+            document.getElementById("edu_msg").style.color = "green";
+        }
+        else if(xhr.status!==200){
+            document.getElementById("edu_msg").innerHTML = "Error-" + xhr.status;
+            document.getElementById("edu_msg").style.color = "darkred";
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('PUT', 'changeEdu_salary');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(new_salary);
+}
+function servlet_changeBonus(flag){
+    let data = {"admin_salary":basic_salary_admin,"edu_salary":basic_salary_edu,"bonus_search":search_bonus,"bonus_lib":library_bonus};
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            if(flag===1){
+                document.getElementById("sb_msg").innerHTML = "Success";
+                document.getElementById("sb_msg").style.color = "green";
+            }else{
+                document.getElementById("lb_msg").innerHTML = "Success";
+                document.getElementById("lb_msg").style.color = "green";
+            }
+        }
+        else if(xhr.status!==200){
+            if(flag===1){
+                document.getElementById("sb_msg").innerHTML = "Error-" + xhr.status;
+                document.getElementById("sb_msg").style.color = "darkred";
+            }else{
+                document.getElementById("lb_msg").innerHTML = "Error-" + xhr.status;
+                document.getElementById("lb_msg").style.color = "darkred";
+            }
+
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('PUT', 'change_bonus');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(JSON.stringify(data));
 }

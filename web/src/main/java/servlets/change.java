@@ -20,6 +20,7 @@ public class change extends HttpServlet {
         System.out.println(json);
         try {
             Employee new_emp = Employee.editEmployee(json);
+            Employee.changeContractedSalary(Employee.json.getJson(json).get("name").getAsString(),Employee.json.getJson(json).get("main_salary").getAsInt());
         } catch (Exception e) {
             response.setStatus(403);
             throw new RuntimeException(e);

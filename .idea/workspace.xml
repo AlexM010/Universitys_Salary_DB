@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="Payments Serverside Complete">
+    <list default="true" id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="quick changes to js">
+      <change afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Salary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/change.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/edit.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/edit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,21 +61,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/isido/IdeaProjects/Project-359&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.Main (1)">
+}</component>
+  <component name="RunManager" selected="Smart Tomcat.Unnamed">
+
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
       <module name="web" />
@@ -153,7 +158,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673542026405</updated>
-      <workItem from="1674724423048" duration="7235000" />
+      <workItem from="1674663562339" duration="1168000" />
+      <workItem from="1674745868804" duration="4236000" />
+      <workItem from="1674752320376" duration="15086000" />
+
     </task>
     <task id="LOCAL-00001" summary="Edit Salary of Every Category Simultaneously">
       <created>1674662363538</created>

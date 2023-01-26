@@ -19,7 +19,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
-<body class="container">
+<body class="container" onload="init()">
 <div class="mb-3"></div>
 <button class="btn btn-primary mb-3" onclick="add_permanent()">add permanent</button>
 <button class="btn btn-primary mb-3" onclick="add_contracted()">add contract</button>
@@ -216,7 +216,7 @@
                 />
             </div>
         </div>
-        <div  class="mb-3">
+        <div  class="mb-3" id="year">
             <div class="col-sm-3">
                 <label for="years" class="form-label">*Years</label>
             </div>
@@ -259,8 +259,11 @@
     <div id="searchResult"></div>
 </div>
 <div id="editSalary" class="col-sm-3" style="display: none">
-    <form onsubmit="changeSalary(); return false">
-        <input id="salaryField" type="text" name="user" class="form-control mb-3" placeholder="Change Salary...">
+    <form class="mb-3" onsubmit="change_admin_Salary(); return false">
+        <div class="col">
+            <label for="salaryField" class="form-label">Administrative Salary</label>
+        </div>
+        <input id="salaryField" type="text" name="user" class="form-control mb-3" placeholder="Change Admin Salary...">
         <button
                 type="submit"
                 class="btn btn-primary"
@@ -270,6 +273,84 @@
         <div id="salary_msg" style="color:darkred"></div>
     </form>
 
+    <form class="mb-3" onsubmit="change_edu_Salary(); return false">
+        <div class="col">
+            <label for="salaryField" class="form-label">Educational Salary</label>
+        </div>
+        <input id="edu_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Edu. Salary...">
+        <button
+                type="submit"
+                class="btn btn-primary"
+        >
+            Change Salary
+        </button>
+        <div id="edu_msg" style="color:darkred"></div>
+    </form>
+    <form class="mb-3" onsubmit="change_search_bonus(); return false">
+        <div class="col">
+            <label for="salaryField" class="form-label">Administrative Salary</label>
+        </div>
+        <input id="sb_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Search Bonus...">
+        <button
+                type="submit"
+                class="btn btn-primary"
+        >
+            Change bonus
+        </button>
+        <div id="sb_msg" style="color:darkred"></div>
+    </form>
+    <form onsubmit="change_lib_bonus(); return false">
+        <div class="col">
+            <label for="salaryField" class="form-label">Library Bonus</label>
+        </div>
+        <input id="lb_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Library Bonus...">
+        <button
+                type="submit"
+                class="btn btn-primary"
+        >
+            Change bonus
+        </button>
+        <div id="lb_msg" style="color:darkred"></div>
+    </form>
 </div>
+<!--<div id="editSalary" class="col-sm-3" style="display: none">-->
+<!--    <form onsubmit="changeSalary(); return false">-->
+<!--        <input id="edu_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Edu. Salary...">-->
+<!--        <button-->
+<!--                type="submit"-->
+<!--                class="btn btn-primary"-->
+<!--        >-->
+<!--            Change Salary-->
+<!--        </button>-->
+<!--        <div id="edu_msg" style="color:darkred"></div>-->
+<!--    </form>-->
+
+<!--</div>-->
+<!--<div id="editSalary" class="col-sm-3" style="display: none">-->
+<!--    <form onsubmit="changeSalary(); return false">-->
+<!--        <input id="sb_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Search Bonus...">-->
+<!--        <button-->
+<!--                type="submit"-->
+<!--                class="btn btn-primary"-->
+<!--        >-->
+<!--            Change Salary-->
+<!--        </button>-->
+<!--        <div id="sb_msg" style="color:darkred"></div>-->
+<!--    </form>-->
+
+<!--</div>-->
+<!--<div id="editSalary" class="col-sm-3" style="display: none">-->
+<!--    <form onsubmit="changeSalary(); return false">-->
+<!--        <input id="lb_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Library Bonus...">-->
+<!--        <button-->
+<!--                type="submit"-->
+<!--                class="btn btn-primary"-->
+<!--        >-->
+<!--            Change Salary-->
+<!--        </button>-->
+<!--        <div id="lb_msg" style="color:darkred"></div>-->
+<!--    </form>-->
+
+<!--</div>-->
 </body>
 </html>
