@@ -8,6 +8,8 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.io.BufferedReader;
+import java.sql.SQLException;
+
 import static db.Database.getFromDB;
 import static db.Database.updateDB;
 
@@ -436,104 +438,124 @@ public class Employee {
             throw new RuntimeException(e);
         }
     }
-    public static String doPayments(String date,int basic_salary_admin,int search_bonus,int basic_salary_edu,int library_bonus){
-        String result="";
-        int total=0;
-        int salary=0;
-        int bonus=0;
+
+    public static void firePermanentEmployee(String name,String date){
         try {
-            String query = "SELECT * FROM permanent;";
+            String query = "SELECT * FROM payment WHERE name ='" + name + "' AND date ='" + date + "';";
             ResultSet res = getFromDB(query);
-            result+="\nPayments:\n";
-            while (res.next()) {
-                query = "SELECT * FROM salary WHERE name ='" + res.getString("name") + "';";
-                ResultSet res2 = getFromDB(query);
-                while (res2.next()) {
-                    salary= res2.getInt("main_salary");
-                    bonus = res2.getInt("bonus");
-                     total = salary + bonus;
-                    Payment.addPayment(res.getString("name"), date, total);
-                }
-                result+="Name: "+res.getString("name")+" - Date: "+date+" - Total: "+total;
-                if(res.getInt("category")==0) {
-                    result += "€ - Main_Salary: " + salary +"€ [ salary: "+basic_salary_admin+"€ + (15% * salary: "+basic_salary_admin+"€ * years: "+res.getInt("years")+"): "+(0.15*basic_salary_admin*res.getInt("years"))+"€ ] -";
-                }else{
-                    result += "€ - Main_Salary: " + salary +"€ [ salary: "+basic_salary_edu+"€ + (15% * salary: "+basic_salary_edu+"€ * years: "+res.getInt("years")+"): "+(0.15*basic_salary_edu*res.getInt("years"))+"€ ] -";
-                }
-
-                    result += " Bonus: "+ bonus+"€ [";
-                    if(res.getInt("married")==1){
-                        int children=1;
-                        String queryA = "SELECT * FROM ages WHERE name ='"+res.getString("name")+"';";
-                        ResultSet resA = getFromDB(queryA);
-                        while(resA.next()){
-                            int age = resA.getInt("age");
-                            if(age<18){
-                                children+=1;
-                            }
-                        }
-                        result+=" Family Bonus: (5% * salary:"+(res.getBoolean("category")?basic_salary_edu:basic_salary_admin)+"€ * dependent_members:"+children+"): "+(0.05*(res.getBoolean("category")?basic_salary_edu:basic_salary_admin)*children)+"€";
-
-                    //category
-                }
-                    if(res.getInt("category")==1) {
-                        if(res.getInt("married")==1){
-                            result += " + ";
-                        }
-                        result += "Research Bonus: " + search_bonus+"€";
-                    }
-                    result+=" ]\n";
-
+            if (res.next()) {
+                query = "DELETE FROM permanent WHERE name ='" + name + "';";
+                updateDB(query);
+                query = "DELETE FROM ages WHERE name ='" + name + "';";
+                updateDB(query);
+                query = "DELETE FROM salary WHERE name ='" + name + "';";
+                updateDB(query);
+            }else{
+                throw new RuntimeException("Employee cannot be fired because he/she has not been paid yet or does not exist");
             }
-            query = "SELECT * FROM contracted;";
-            res = getFromDB(query);
-            while (res.next()) {
-                query = "SELECT * FROM salary WHERE name ='" + res.getString("name") + "';";
-                ResultSet res2 = getFromDB(query);
-                while (res2.next()) {
-                    salary= res2.getInt("main_salary");
-                    bonus = res2.getInt("bonus");
-                    total = salary + bonus;
-                    Payment.addPayment(res.getString("name"), date, total);
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static String getEmployeeInfo(String name,int basic_salary_admin,int search_bonus,int basic_salary_edu,int library_bonus){
+        //get all info from employees in  permanent and contracted tables the  kids ages of emplloyee on ages table and full salary description
+        //like this: Permanent Employee name: name Address phone_number iban bank_name start date department children married:yes Category: Admin Years of service: years Salary: salary+bonus
+        //Contracted Employee name: name Address phone_number iban bank_name start date end_date department children married:yes Category: Admin Salary: salary+bonus
+        try {
+            String query = "SELECT * FROM permanent WHERE name ='" + name + "';";
+            ResultSet res = getFromDB(query);
+            if (res.next()) {
+                String address = res.getString("address");
+                String phone_number = res.getString("phone_number");
+                String iban = res.getString("iban");
+                String bank_name = res.getString("bank_name");
+                String start_date = res.getString("start_date");
+                String department = res.getString("department");
+                int category = res.getInt("category");
+                int married = res.getInt("married");
+                int years = res.getInt("years");
+                String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
+                ResultSet resA = getFromDB(queryA);
+                int children=0;
+                while(resA.next()){
+                    String ages="[";
+                    int age = resA.getInt("age");
+                    if(age<18){
+                        children+=1;
+                    }
+                    ages+=age+",";
+                    ages+="]";
                 }
-                result+="Name: "+res.getString("name")+" - Date: "+date+" - Total: "+total;
-                if(res.getInt("category")==0) {
-                    result += "€ - Main_Salary: " + salary +"€ [ salary:"+salary+"€ ] -";
+                if(married==1){
+                    children+=1;
                 }else{
-                    result += "€ - Main_Salary: " + salary +"€ [ salary:"+salary+"€ ] -";
+                    children=0;
                 }
-
-                result += " Bonus: "+ bonus+"€ [ ";
-                if(res.getInt("married")==1){
-                    int children=1;
-                    String queryA = "SELECT * FROM ages WHERE name ='"+res.getString("name")+"';";
+                String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
+                ResultSet resS = getFromDB(queryS);
+                int salary=0;
+                int bonus=0;
+                while(resS.next()){
+                    salary = resS.getInt("main_salary");
+                    bonus = resS.getInt("bonus");
+                }
+                if(category==0){
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Admin - Years of service: " + years + " - Salary: " + (salary+bonus);
+                }else{
+                    return "Permanent Employee name: " + name + " -  Address " + address + " - phone_number " + phone_number + " - iban " + iban + " - bank_name " + bank_name + " - start date " + start_date + " - department " + department + " - children " + children + " - married:"+(married==1?"yes":"no")+" - Category: Education - Years of service: " + years + " - Salary: " + (salary+bonus);
+                }
+            }else{
+                query = "SELECT * FROM contracted WHERE name ='" + name + "';";
+                res = getFromDB(query);
+                if (res.next()) {
+                    String address = res.getString("address");
+                    String phone_number = res.getString("phone_number");
+                    String iban = res.getString("iban");
+                    String bank_name = res.getString("bank_name");
+                    String start_date = res.getString("start_date");
+                    String end_date = res.getString("end_date");
+                    String department = res.getString("department");
+                    int category = res.getInt("category");
+                    int married = res.getInt("married");
+                    int children=0;
+                    String queryA = "SELECT * FROM ages WHERE name ='"+name+"';";
                     ResultSet resA = getFromDB(queryA);
                     while(resA.next()){
+                        String ages="[";
                         int age = resA.getInt("age");
                         if(age<18){
                             children+=1;
                         }
+                        ages+=age+",";
+                        ages+="]";
                     }
-                    result+=" Family Bonus: (5% * salary:"+salary+"€ * dependent_members:"+children+"): "+(0.05*salary*children)+"€";
-
-                    //category
-                }
-                if(res.getInt("category")==1) {
-                    if(res.getInt("married")==1){
-                        result += " + ";
+                    if(married==1){
+                        children+=1;
+                    }else{
+                        children=0;
                     }
-                    result += "Library Bonus: " + library_bonus+"€";
+                    String queryS= "SELECT * FROM salary WHERE name ='"+name+"';";
+                    ResultSet resS = getFromDB(queryS);
+                    int salary=0;
+                    int bonus=0;
+                    while(resS.next()){
+                        salary = resS.getInt("main_salary");
+                        bonus = resS.getInt("bonus");
+                    }
+                    if(category==0){
+                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Administrator Salary: " + (salary+bonus);
+                    }else{
+                        return "Contracted Employee name: " + name + " Address " + address + " phone_number " + phone_number + " iban " + iban + " bank_name " + bank_name + " start date " + start_date + " end_date " + end_date + " department " + department + " children " + children + " married:"+(married==1?"yes":"no")+" Category: Educational Salary: " + (salary+bonus);
+                    }
+                }else{
+                    throw new RuntimeException("Employee does not exist");
                 }
-                result+=" ]\n";
-
             }
-
-        }catch(Exception e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return result;
-    }
 
+    }
     public String getName() {
         return name;
     }

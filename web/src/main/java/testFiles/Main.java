@@ -2,6 +2,7 @@ package testFiles;
 
 import classes.Employee;
 import classes.Payment;
+import classes.Salary;
 
 import java.io.IOException;
 
@@ -39,7 +40,7 @@ public class Main {
                 "   \"startDate\": \"2022-01-01\",\n" +
                 "   \"department\": \"Marketing\",\n" +
                 "   \"numOfChildren\": 0,\n" +
-                "   \"married\": true,\n" +
+                "   \"married\": false,\n" +
                 "   \"category\": false,\n" +
                 "   \"endDate\": \"2023-01-01\",\n" +
                 "   \"bonus\": 1000.00,\n" +
@@ -66,8 +67,12 @@ public class Main {
                 "}");*/
                 Employee.changeContractedSalary("Emily Johnson", 100);
                 Employee.changeBonuses(100,50,100,50);
-                System.out.println(Employee.doPayments("2022-01-05",100,50,100,50));
-
+                System.out.println(Payment.doPayments("2022-01-05",100,50,100,50));
+                System.out.println(Payment.paymentsPerCategory());
+                System.out.println(Salary.getSalaryStatistics());
+                System.out.println(Employee.getEmployeeInfo("Alexandros Markodimitrakis",100,50,100,50));
+                System.out.println(Employee.getEmployeeInfo("Emily Johnson",100,50,100,50));
+                System.out.println(Salary.getTotalSalaryStatistics());
    //     Employee.changePermanentEducationalSalaries(15000);
       /*  Employee e4=Employee.addEmployee("{\n" +
                 "   \"contract\": true,\n" +
