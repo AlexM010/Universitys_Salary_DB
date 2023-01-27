@@ -25,6 +25,9 @@
 <button class="btn btn-primary mb-3" onclick="add_contracted()">add contract</button>
 <button class="btn btn-primary mb-3" onclick="edit()">edit user</button>
 <button class="btn btn-primary mb-3" onclick="editSalary()">Edit Main Salary</button>
+<button class="btn btn-primary mb-3" onclick="make_payments()">Payments</button>
+<button class="btn btn-danger mb-3" onclick="delete_e()">Fire or Retire</button>
+
 <div id="newAdd" style="display: none">
     <h2 id="description">New Permanent</h2>
     <form id="employeeForm" onsubmit="new_permanent(); return false">
@@ -254,9 +257,25 @@
         </button>
     </form>
 </div>
+<div id="payments" class="col-sm-3">
+    <form id="p-date" class="mb-3" onsubmit="servlet_payments(); return false">
+        <label for="dates" class="form-label">Date of Payments</label>
+        <input id="dates" type="date" name="date" class="form-control mb-3" value="2023-01-30"/>
+        <button class="btn btn-primary mb-3">Make Payments</button>
+    </form>
+    <div>
+        <button class="btn btn-primary mb-3" onclick="show_payments()">Show Payments</button>
+
+    </div>
+</div>
+<pre id="payments-msg"></pre>
 <div id="search" class="col-sm-3" style="display: none">
     <input id="searchField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="getUser()">
     <div id="searchResult"></div>
+</div>
+<div id="delete" class="col-sm-3" style="display: none">
+    <input id="deleteField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="find_employ()">
+    <div id="deleteResult"></div>
 </div>
 <div id="editSalary" class="col-sm-3" style="display: none">
     <form class="mb-3" onsubmit="change_admin_Salary(); return false">
@@ -288,7 +307,7 @@
     </form>
     <form class="mb-3" onsubmit="change_search_bonus(); return false">
         <div class="col">
-            <label for="salaryField" class="form-label">Administrative Salary</label>
+            <label for="salaryField" class="form-label">Search Bonus</label>
         </div>
         <input id="sb_Field" type="text" name="user" class="form-control mb-3" placeholder="Change Search Bonus...">
         <button
