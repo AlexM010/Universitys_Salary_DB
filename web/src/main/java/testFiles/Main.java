@@ -70,8 +70,8 @@ public class Main {
                 System.out.println(Payment.doPayments("2022-01-05",100,50,100,50));
                 System.out.println(Payment.paymentsPerCategory());
                 System.out.println(Salary.getSalaryStatistics());
-                System.out.println(Employee.getEmployeeInfo("Alexandros Markodimitrakis",100,50,100,50));
-                System.out.println(Employee.getEmployeeInfo("Emily Johnson",100,50,100,50));
+                System.out.println(Employee.getEmployeeInfo("Alexandros Markodimitrakis"));
+                System.out.println(Employee.getEmployeeInfo("Emily Johnson"));
                 System.out.println(Salary.getTotalSalaryStatistics());
    //     Employee.changePermanentEducationalSalaries(15000);
       /*  Employee e4=Employee.addEmployee("{\n" +

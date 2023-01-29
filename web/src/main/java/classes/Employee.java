@@ -457,7 +457,7 @@ public class Employee {
             throw new RuntimeException(e);
         }
     }
-    public static String getEmployeeInfo(String name,int basic_salary_admin,int search_bonus,int basic_salary_edu,int library_bonus){
+    public static String getEmployeeInfo(String name){
         //get all info from employees in  permanent and contracted tables the  kids ages of emplloyee on ages table and full salary description
         //like this: Permanent Employee name: name Address phone_number iban bank_name start date department children married:yes Category: Admin Years of service: years Salary: salary+bonus
         //Contracted Employee name: name Address phone_number iban bank_name start date end_date department children married:yes Category: Admin Salary: salary+bonus

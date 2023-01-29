@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="js/ajax.js"></script>
+<!--    <script src="js/ajax.js"></script>-->
     <!-- Bootstrap -->
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -26,6 +26,7 @@
 <button class="btn btn-primary mb-3" onclick="edit()">edit user</button>
 <button class="btn btn-primary mb-3" onclick="editSalary()">Edit Main Salary</button>
 <button class="btn btn-primary mb-3" onclick="make_payments()">Payments</button>
+<button class="btn btn-primary mb-3" onclick="show_Questions()">Questions</button>
 <button class="btn btn-danger mb-3" onclick="delete_e()">Fire or Retire</button>
 
 <div id="newAdd" style="display: none">
@@ -257,18 +258,38 @@
         </button>
     </form>
 </div>
-<div id="payments" class="col-sm-3">
-    <form id="p-date" class="mb-3" onsubmit="servlet_payments(); return false">
-        <label for="dates" class="form-label">Date of Payments</label>
-        <input id="dates" type="date" name="date" class="form-control mb-3" value="2023-01-30"/>
-        <button class="btn btn-primary mb-3">Make Payments</button>
-    </form>
-    <div>
-        <button class="btn btn-primary mb-3" onclick="show_payments()">Show Payments</button>
-
+<div id="payments"  style="display: none">
+    <div class="col-sm-3">
+        <form id="p-date" class="mb-3" onsubmit="servlet_payments(); return false">
+            <label for="dates" class="form-label">Date of Payments</label>
+            <input id="dates" type="date" name="date" class="form-control mb-3" value="2023-01-30"/>
+            <button class="btn btn-primary mb-3">Make Payments</button>
+        </form>
+        <div>
+            <button class="btn btn-primary mb-3" onclick="show_payments()">Show Payments</button>
+            <button class="btn btn-primary mb-3" onclick="servlet_questions()">Salary Per Category</button>
+            <button class="btn btn-primary mb-3" onclick="servlet_questions2()">Total Salary Per Category</button>
+        </div>
+        <div id="search-salary" >
+            <input id="search-salaryField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="servletFind()">
+        </div>
     </div>
+
+    <pre id="search-salaryResult"></pre>
+    <pre id="payments-msg"></pre>
+    <pre id="questions-msg"></pre>
+    <pre id="questions2-msg"></pre>
 </div>
-<pre id="payments-msg"></pre>
+
+<!--<div id="questions"  style="display: none">-->
+<!--    <div class="col-sm-3">-->
+<!--        <div>-->
+<!--            <button class="btn btn-primary mb-3" onclick="show_payments()">Show Payments</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
 <div id="search" class="col-sm-3" style="display: none">
     <input id="searchField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="getUser()">
     <div id="searchResult"></div>
@@ -277,6 +298,8 @@
     <input id="deleteField" type="text" name="user" class="form-control" placeholder="Search employee..." onchange="find_employ()">
     <div id="deleteResult"></div>
 </div>
+
+
 <div id="editSalary" class="col-sm-3" style="display: none">
     <form class="mb-3" onsubmit="change_admin_Salary(); return false">
         <div class="col">
@@ -372,4 +395,5 @@
 
 <!--</div>-->
 </body>
+<script src="js/ajax.js"></script>
 </html>
