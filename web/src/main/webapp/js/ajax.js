@@ -129,6 +129,9 @@ function add_permanent(){
     document.getElementById("salary").style.display = "none";
     document.getElementById("salary").style.visibility = "hidden";
     document.getElementById("search").style.display = "none";
+    document.getElementById("editSalary").style.display = "none";
+    document.getElementById("delete").style.display = "none";
+    document.getElementById("payments").style.display = "none";
     flag = false;
 }
 function add_contracted(){
@@ -139,6 +142,10 @@ function add_contracted(){
     document.getElementById("salary").style.visibility = "visible";
     document.getElementById("salary").style.display = "initial";
     document.getElementById("search").style.display = "none";
+    document.getElementById("editSalary").style.display = "none";
+    document.getElementById("delete").style.display = "none";
+    document.getElementById("year").style.display = "none";
+    document.getElementById("payments").style.display = "none";
     flag = true;
 }
 
@@ -185,8 +192,41 @@ function add_contracted(){
 function edit(){
     document.getElementById("newAdd").style.display = "none";
     document.getElementById("editSalary").style.display = "none";
+    document.getElementById("delete").style.display = "none";
+
     document.getElementById("search").style.display = "block";
     document.getElementById("searchResult").innerHTML= " ";
+    document.getElementById("payments").style.display = "none";
+}
+function changeContract(){
+    var user_t = document.getElementById("userType");
+    if(user_t.value==="0"){
+        flag2 = false;
+        document.getElementById("submit").remove();
+        document.getElementById("update_msg").remove();
+        document.getElementById("end_date").style.display = "none";
+        document.getElementById("main_salary").style.display = "none";
+        document.getElementById("updateInfo_form").innerHTML +=  "<div class='mb-3'><label for='years' class='form-label'>years</label><input id='years' name='years' type='text' class='form-control' aria-label='Name' value='' /></div>";
+         document.getElementById("updateInfo_form").innerHTML += "<div style='margin-bottom:5px; position: relative; top: 0.5em; color: green;' id='update_msg' className='form-text'></div><br><input type='submit' id='submit' value='Update Info'>";
+        // user_t.value ="0";
+        $(document).ready(()=>{
+            $("#userType").val('0');
+        });
+    }else if(user_t.value==="1"){
+        flag2 = true;
+        document.getElementById("years").style.display = "none";
+        document.getElementById("submit").remove();
+        document.getElementById("update_msg").remove();
+        document.getElementById("updateInfo_form").innerHTML += "<div class='mb-3'><label for='main_salary' class='form-label'>salary</label>" +
+            "<input id='main_salary' name='main_salary' type='text' class='form-control' aria-label='Name' value='' /></div>";
+        document.getElementById("updateInfo_form").innerHTML += "<div class='mb-3'><label for='end_date' class='form-label'>end_date</label>" +
+            "<input id='end_date' name='endDate' type='text' class='form-control' aria-label='Name' value='' /></div>";
+        document.getElementById("updateInfo_form").innerHTML += "<div style='margin-bottom:5px; position: relative; top: 0.5em; color: green;' id='update_msg' className='form-text'></div><br><input type='submit' id='submit' value='Update Info'>";
+        // user_t.value ="1";
+        $(document).ready(()=>{
+            $("#userType").val('1');
+        });
+    }
 }
 function getUser() {
     let html = "<br><br><form id='updateInfo_form' name='updateInfo_form' onsubmit='change(); return false;'>";
@@ -198,11 +238,11 @@ function getUser() {
             flag2 = data["contract"];
             if(flag2){
                 html += "<div class='mb-3'><label for='contract' class='form-label'>Contract</label>" +
-                    "<div onChange='selection()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' >Permanent</option> <option value='1' selected>Contracted</option> </select> </div></div>";
+                    "<div onchange='changeContract()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' >Permanent</option> <option value='1' selected>Contracted</option> </select> </div></div>";
             }
             else{
                 html += "<div class='mb-3'><label for='contract' class='form-label'>Contract</label>" +
-                    "<div onChange='selection()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' selected>Permanent</option> <option value='1'>Contracted</option> </select> </div></div>";
+                    "<div onchange='changeContract()'><select id='userType' name='contract' class='form-select' aria-label='Default select example'> <option value='0' selected>Permanent</option> <option value='1'>Contracted</option> </select> </div></div>";
             }
 
 
@@ -309,20 +349,22 @@ function getUser() {
     xhr.send();
 }
 function createTableFromJSON(data) {
-    var html = "<table><tr><th>Category</th><th>Value</th></tr>";
+    var html = "<table class='mb-3'><tr><th>Category</th><th>Value</th></tr>";
     for (const x in data) {
         var category = x;
         var value = data[x];
         html += "<tr><td>" + category + "</td><td>" + value + "</td></tr>";
     }
     html += "</table>";
+    html += "<input type='date' class='form-control mb-3' id='deleteDate' value='2023-01-30'/>"
+    html += "<button class='btn btn-danger' onclick='servlet_delete()'>Fire/Retire</button>"
+
     return html;
 }
 
 function change(){
     let form = document.getElementById("updateInfo_form")
     let pname = document.getElementById("searchField").value;
-    let bonus;
     console.log(pname);
     console.log(flag2);
 
@@ -330,6 +372,7 @@ function change(){
     let data = {"contract": flag2,"pname":pname,"bonus":0,"main_salary":basic_salary_admin};
 
     formData.forEach(function (value,key){
+
         if(key==="married"||key==="category"){
             data[key] = (value === 'true');
         }else if(key === 'years'||key==='numOfChildren'||key==='main_salary'){
@@ -337,7 +380,10 @@ function change(){
         }else if(key === 'ages'){
             let array = value.split(",").map(Number);
             data[key] = array;
-        } else{
+        }else if(key==="contract"){
+
+        }
+        else{
             data[key] = value;
         }
     });
@@ -356,21 +402,6 @@ function change(){
             data["bonus"] = 0;
         }
     }
-    // if(flag===false){
-    //     if(data["category"]===false){
-    //         data["main_salary"] = basic_salary_admin;
-    //
-    //     }else if(data["category"]===true){
-    //         data["main_salary"] = basic_salary_edu;
-    //         data["bonus"] = search_bonus;
-    //     }
-    // }else{
-    //     if(data["category"]===true){
-    //         data["bonus"] = library_bonus;
-    //     }else{
-    //         data["bonus"] = 0;
-    //     }
-    // }
     let xhr = new XMLHttpRequest();
     xhr.onload =  function (){
         if(xhr.readyState === 4 && xhr.status === 200){
@@ -392,10 +423,49 @@ function change(){
 function editSalary(){
     document.getElementById("newAdd").style.display = "none";
     document.getElementById("search").style.display = "none";
+    document.getElementById("delete").style.display = "none";
     document.getElementById("editSalary").style.display = "block";
     document.getElementById("salaryField").innerHTML= " ";
+    document.getElementById("payments").style.display = "none";
 }
-
+function delete_e(){
+    document.getElementById("newAdd").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("delete").style.display = "block";
+    document.getElementById("editSalary").style.display = "none";
+    document.getElementById("salaryField").innerHTML= " ";
+    document.getElementById("payments").style.display = "none";
+}
+function find_employ(){
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            $("#deleteResult").html(createTableFromJSON(JSON.parse(xhr.responseText)));
+        } else if (xhr.status !== 200) {
+            $("#deleteResult").html("employee doesn't exists");
+        }
+    };
+    var data = $('#deleteField').serialize();
+    xhr.open('GET', 'deleteEmploy?'+data);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send();
+}
+function servlet_delete(){
+    var data = {"user":$('#deleteField').val(),"date":$('#deleteDate').val()};
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            $("#deleteResult").html("user delete");
+            $("#deleteResult").css("color","green")
+        } else if (xhr.status !== 200) {
+            $("#deleteResult").html("error"+xhr.status);
+            $("#deleteResult").css("color","darkred");
+        }
+    };
+    xhr.open('DELETE', 'deleteEmploy');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(JSON.stringify(data));
+}
 function change_admin_Salary(){
 
     let temp = document.getElementById("salaryField").value;
@@ -428,7 +498,7 @@ function change_edu_Salary(){
 function change_search_bonus(){
     let temp = document.getElementById("sb_Field").value;
     if(temp<=search_bonus ){
-        document.getElementById("sb_msg").innerHTML = "The new main salary must be bigger than "+ search_bonus;
+        document.getElementById("sb_msg").innerHTML = "The new search bonus must be bigger than "+ search_bonus;
         document.getElementById("sb_msg").style.color = "darkred";
     }else{
         search_bonus = temp;
@@ -441,7 +511,7 @@ function change_lib_bonus(){
 
     let temp = document.getElementById("lb_Field").value;
     if(temp<=library_bonus){
-        document.getElementById("lb_msg").innerHTML = "The new main salary must be bigger than "+ library_bonus;
+        document.getElementById("lb_msg").innerHTML = "The new library bonus must be bigger than "+ library_bonus;
         document.getElementById("lb_msg").style.color = "darkred";
     }else{
         library_bonus = temp;
@@ -500,12 +570,17 @@ function servlet_changeBonus(flag){
             }
         }
         else if(xhr.status!==200){
-            if(flag===1){
-                document.getElementById("sb_msg").innerHTML = "Error-" + xhr.status;
+            if(xhr.status==405){
+                document.getElementById("sb_msg").innerHTML = "No employee with this bonus";
                 document.getElementById("sb_msg").style.color = "darkred";
             }else{
-                document.getElementById("lb_msg").innerHTML = "Error-" + xhr.status;
-                document.getElementById("lb_msg").style.color = "darkred";
+                if(flag===1){
+                    document.getElementById("sb_msg").innerHTML = "Error-" + xhr.status;
+                    document.getElementById("sb_msg").style.color = "darkred";
+                }else{
+                    document.getElementById("lb_msg").innerHTML = "Error-" + xhr.status;
+                    document.getElementById("lb_msg").style.color = "darkred";
+                }
             }
 
             console.log(xhr.status);
@@ -515,4 +590,117 @@ function servlet_changeBonus(flag){
     xhr.open('PUT', 'change_bonus');
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xhr.send(JSON.stringify(data));
+}
+
+function make_payments(){
+    document.getElementById("newAdd").style.display = "none";
+    document.getElementById("search").style.display = "none";
+    document.getElementById("delete").style.display = "none";
+    document.getElementById("editSalary").style.display = "none";
+    document.getElementById("payments").style.display = "block";
+    document.getElementById("payments-msg").innerHTML = " ";
+}
+function servlet_payments(){
+    let date = document.getElementById("dates").value;
+    let data = {"date": date,"admin_salary":basic_salary_admin,"edu_salary":basic_salary_edu,"bonus_search":search_bonus,"bonus_lib":library_bonus};
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            console.log("payments done")
+        }
+        else if(xhr.status!==200){
+
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('POST', 'doPayments');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(JSON.stringify(data));
+}
+
+function show_payments(){
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            let str =xhr.responseText;
+            str = replaceEuro(str);
+            document.getElementById("payments-msg").innerHTML = "<b>Payments</b><br>"+str;
+            console.log(xhr.responseText)
+        }
+        else if(xhr.status!==200){
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('GET', 'doPayments');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send();
+}
+function replaceEuro(str) {
+    return str.replace(/\?/g, "&euro;");
+}
+
+function servlet_questions(){
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            let str =xhr.responseText;
+            str = replaceEuro(str);
+            document.getElementById("questions-msg").innerHTML ="<b>Salary Per Category</b><br>"+ str;
+            console.log(xhr.responseText)
+        }
+        else if(xhr.status!==200){
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('GET', 'questions');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send();
+}
+
+
+function servlet_questions2(){
+    let xhr = new XMLHttpRequest();
+    xhr.onload =  function (){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            let str =xhr.responseText;
+            str = replaceEuro(str);
+            document.getElementById("questions2-msg").innerHTML = "<b>Total Salary per Category</b><br>"+str;
+            console.log(xhr.responseText)
+        }
+        else if(xhr.status!==200){
+            console.log(xhr.status);
+            console.log(xhr.readyState);
+        }
+    }
+    xhr.open('GET', 'question2');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send();
+}
+function replaceEuro(str) {
+    return str.replace(/\?/g, "&euro;");
+}
+
+function servletFind(){
+    var data = {"user":document.getElementById("search-salaryField").value};
+    console.log(data["user"]);
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let str =xhr.responseText;
+            str = replaceEuro(str);
+            let replacedStr = str.replace(/-/g, "\n");
+            document.getElementById("search-salaryResult").innerHTML ="<b>Search Employ Result</b><br>" + replacedStr;
+            // $("#search-salaryResult").html(createTableFromJSON(JSON.parse(xhr.responseText)));$("#deleteResult").html(createTableFromJSON(JSON.parse(xhr.responseText)));
+        } else if (xhr.status !== 200) {
+            $("#search-salaryResult").html("error"+xhr.status);
+            $("#search-salaryResult").css("color","darkred");
+        }
+    };
+    var data = $('#search-salaryField').serialize();
+    xhr.open('GET', 'find?'+data);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send();
 }

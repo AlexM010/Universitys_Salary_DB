@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="quick changes to js">
-      <change afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" afterDir="false" />
+    <list default="true" id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="hard push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/change.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/edit.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/edit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project_Report/Report.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project_Report/Report.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Project_Report/Report.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/db/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/db/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
     </list>
@@ -22,6 +23,11 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="alexm" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -61,7 +67,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -71,14 +76,13 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Smart Tomcat.Unnamed">
-
+  <component name="RunManager" selected="Application.Main (1)">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testFiles.Main" />
       <module name="web" />
@@ -118,7 +122,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+    <configuration name="Unnamed (1)" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
       <predefined_log_file id="Tomcat Catalina Log" />
@@ -126,6 +130,9 @@
       <predefined_log_file id="Tomcat Host Manager Log" />
       <option name="contextPath" value="/web" />
       <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
       <option name="tomcatInfo">
         <TomcatInfo>
           <option name="name" value="Apache Tomcat/9.0.71" />
@@ -138,10 +145,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="contextPath" value="/web" />
+      <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/9.0.70 (5)" />
+          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.70" />
+          <option name="version" value="9.0.70.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Smart Tomcat.Unnamed" />
+      <item itemvalue="Smart Tomcat.Unnamed (1)" />
     </list>
     <recent_temporary>
       <list>
@@ -153,7 +184,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="af9adb98-84f6-4a8e-bc9b-02e3d2dbfde1" name="Changes" comment="" />
+      <changelist id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="addition of change salary/bonus action" />
       <created>1673542026405</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -161,7 +192,12 @@
       <workItem from="1674663562339" duration="1168000" />
       <workItem from="1674745868804" duration="4236000" />
       <workItem from="1674752320376" duration="15086000" />
-
+      <workItem from="1674817080306" duration="1866000" />
+      <workItem from="1674828098704" duration="8176000" />
+      <workItem from="1674908361424" duration="216000" />
+      <workItem from="1674950709353" duration="5135000" />
+      <workItem from="1674999455808" duration="7574000" />
+      <workItem from="1675008303018" duration="2944000" />
     </task>
     <task id="LOCAL-00001" summary="Edit Salary of Every Category Simultaneously">
       <created>1674662363538</created>
@@ -191,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674674635420</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="hard push">
+      <created>1674855732237</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674855732237</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +255,7 @@
     <MESSAGE value="Edit Salary of Every Category Simultaneously" />
     <MESSAGE value="Family Error Fixed" />
     <MESSAGE value="Payments Serverside Complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="Payments Serverside Complete" />
+    <MESSAGE value="hard push" />
+    <option name="LAST_COMMIT_MESSAGE" value="hard push" />
   </component>
 </project>
