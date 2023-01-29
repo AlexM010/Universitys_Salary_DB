@@ -498,7 +498,7 @@ function change_edu_Salary(){
 function change_search_bonus(){
     let temp = document.getElementById("sb_Field").value;
     if(temp<=search_bonus ){
-        document.getElementById("sb_msg").innerHTML = "The new main salary must be bigger than "+ search_bonus;
+        document.getElementById("sb_msg").innerHTML = "The new search bonus must be bigger than "+ search_bonus;
         document.getElementById("sb_msg").style.color = "darkred";
     }else{
         search_bonus = temp;
@@ -511,7 +511,7 @@ function change_lib_bonus(){
 
     let temp = document.getElementById("lb_Field").value;
     if(temp<=library_bonus){
-        document.getElementById("lb_msg").innerHTML = "The new main salary must be bigger than "+ library_bonus;
+        document.getElementById("lb_msg").innerHTML = "The new library bonus must be bigger than "+ library_bonus;
         document.getElementById("lb_msg").style.color = "darkred";
     }else{
         library_bonus = temp;
@@ -570,12 +570,17 @@ function servlet_changeBonus(flag){
             }
         }
         else if(xhr.status!==200){
-            if(flag===1){
-                document.getElementById("sb_msg").innerHTML = "Error-" + xhr.status;
+            if(xhr.status==405){
+                document.getElementById("sb_msg").innerHTML = "No employee with this bonus";
                 document.getElementById("sb_msg").style.color = "darkred";
             }else{
-                document.getElementById("lb_msg").innerHTML = "Error-" + xhr.status;
-                document.getElementById("lb_msg").style.color = "darkred";
+                if(flag===1){
+                    document.getElementById("sb_msg").innerHTML = "Error-" + xhr.status;
+                    document.getElementById("sb_msg").style.color = "darkred";
+                }else{
+                    document.getElementById("lb_msg").innerHTML = "Error-" + xhr.status;
+                    document.getElementById("lb_msg").style.color = "darkred";
+                }
             }
 
             console.log(xhr.status);

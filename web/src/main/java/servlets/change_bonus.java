@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static classes.Employee.changeBonuses;
 
-@WebServlet(name = "changeSearch_bonus", value = "/changeSearch_bonus")
+@WebServlet(name = "change_bonus", value = "/change_bonus")
 public class change_bonus extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff44110b-0b30-48d5-95fb-503c9d048437" name="Changes" comment="hard push">
-      <change afterPath="$PROJECT_DIR$/web/src/main/java/servlets/find.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/src/main/java/servlets/question2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/src/main/java/servlets/questions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/classes/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project_Report/Report.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project_Report/Report.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Project_Report/Report.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/db/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/db/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/servlets/change_bonus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/java/testFiles/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main/webapp/js/ajax.js" afterDir="false" />
@@ -23,6 +23,11 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="alexm" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -117,6 +122,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Unnamed (1)" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="contextPath" value="/web" />
+      <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/9.0.71" />
+          <option name="path" value="$USER_HOME$/Desktop/apache-tomcat-9.0.71" />
+          <option name="version" value="9.0.71.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
@@ -125,6 +153,9 @@
       <predefined_log_file id="Tomcat Host Manager Log" />
       <option name="contextPath" value="/web" />
       <option name="docBase" value="$PROJECT_DIR$/web/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
       <option name="tomcatInfo">
         <TomcatInfo>
           <option name="name" value="Apache Tomcat/9.0.70 (5)" />
@@ -141,6 +172,7 @@
       <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Smart Tomcat.Unnamed" />
+      <item itemvalue="Smart Tomcat.Unnamed (1)" />
     </list>
     <recent_temporary>
       <list>

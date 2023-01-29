@@ -9,12 +9,13 @@ public class Database {
     final static String url="jdbc:mysql://localhost:3306/";
     final static String username="root";
     final static String password="";
+    static Connection conn=null;
     public static void createDB(){
         try{
 
             Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url,username,password);
-            Statement stmt=conn.createStatement();
+            Connection con = DriverManager.getConnection(url,username,password);
+            Statement stmt=con.createStatement();
             stmt.executeUpdate("DROP DATABASE IF EXISTS salary_db");
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS salary_db;");
             updateDB("SET GLOBAL FOREIGN_KEY_CHECKS=0;");
@@ -26,7 +27,8 @@ public class Database {
     public static Connection updateDB(String query){
         try{
             Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url+"salary_db",username,password);
+            if(conn==null)
+                conn = DriverManager.getConnection(url+"salary_db",username,password);
             Statement stmt=conn.createStatement();
             stmt.executeUpdate(query);
             System.out.println("DB Updated");
@@ -38,7 +40,8 @@ public class Database {
     public static ResultSet getFromDB(String query){
         try{
             Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url+"salary_db",username,password);
+            if(conn==null)
+                conn = DriverManager.getConnection(url+"salary_db",username,password);
             Statement stmt=conn.createStatement();
             ResultSet res= stmt.executeQuery(query);
             System.out.println("DB Get");
